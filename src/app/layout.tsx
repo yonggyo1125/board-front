@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Header from './_global/outlines/Header'
+import Footer from './_global/outlines/Footer'
 
 export const metadata: Metadata = {
   title: '게시판',
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }
