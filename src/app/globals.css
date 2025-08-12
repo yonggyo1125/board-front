@@ -51,3 +51,7 @@ img {
 .flex {
   display: flex;
 }
+
+main.main-content {
+  min-height: 650px;
+}
