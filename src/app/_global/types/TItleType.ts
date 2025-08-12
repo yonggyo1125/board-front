@@ -1,7 +1,7 @@
 type TitleType = {
   children: React.ReactNode
-  border?: boolean
-  center?: boolean
+  border?: boolean | string
+  center?: boolean | string
 }
 
 export default TitleType
