@@ -3,8 +3,12 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-const ContentBox = (children, className) => {
-  return <section className={'layout-width ' + className}>{children}</section>
+const ContentBox = ({ children, className, width }) => {
+  return (
+    <section className={'layout-width ' + className} width={width}>
+      {children}
+    </section>
+  )
 }
 
 const StyledContentBox = styled<any>(ContentBox)`
@@ -12,7 +16,7 @@ const StyledContentBox = styled<any>(ContentBox)`
   ${({ width }) =>
     width &&
     css`
-      width: ${width};
+      width: ${width}px;
     `}
 `
 
