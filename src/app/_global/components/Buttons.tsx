@@ -35,4 +35,19 @@ export const Button = styled.button<ButtonType>`
       background: ${_color};
     `
   }}
+    
+    ${({ fontsize: size }) => {
+    size = size ?? 'normal'
+    return css`
+      font-size: ${fontsize[size] ?? size};
+    `
+  }}
+
+  ${({ fontcolor }) => {
+    fontcolor = fontcolor ?? 'light'
+
+    return css`
+      color: ${fontcolor ?? fontcolor};
+    `
+  }}
 `
