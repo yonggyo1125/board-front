@@ -4,7 +4,7 @@ const JoinForm = ({ errors, action, pending }) => {
     <form action={action} autoComplete="off">
       <input type="text" name="email" />
       <input type="password" name="password" />
-      <button type="submit" disabled={!pending}>
+      <button type="submit" disabled={pending}>
         가입
       </button>
     </form>
