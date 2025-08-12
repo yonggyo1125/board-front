@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -11,7 +10,7 @@ const ContentBox = ({ children, className, width }) => {
   )
 }
 
-const StyledContentBox = styled<any>(ContentBox)`
+const StyledContentBox = styled(ContentBox)<any>`
   padding: 50px;
   ${({ width }) =>
     width &&
