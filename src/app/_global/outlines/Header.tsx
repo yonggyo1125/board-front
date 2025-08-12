@@ -5,8 +5,13 @@ import logo from '../assets/images/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
 const StyledHeader = styled.header`
+  background: #fff;
+
   .inner {
     display: flex;
+    align-items: center;
+    height: 120px;
+
     div {
       width: 0;
       flex-grow: 1;
