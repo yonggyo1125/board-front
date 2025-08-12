@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import logo from '../assets/images/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Button } from '../components/Buttons'
 const StyledHeader = styled.header`
   background: #fff;
 
@@ -38,8 +39,12 @@ const Header = () => {
           </Link>
         </div>
         <div className="right">
-          <Link href="/member/join">회원가입</Link>
-          <Link href="/member/login">로그인</Link>
+          <Link href="/member/join">
+            <Button type="button">회원가입</Button>
+          </Link>
+          <Link href="/member/login">
+            <Button type="button">로그인</Button>
+          </Link>
         </div>
       </div>
     </StyledHeader>

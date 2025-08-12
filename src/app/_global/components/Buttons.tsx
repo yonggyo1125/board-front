@@ -3,12 +3,8 @@ import styled, { css } from 'styled-components'
 import ButtonType from '../types/ButtonType'
 import color from '../styles/color'
 import fontsize from '../styles/fontsize'
-const { primary, light } = color
-const { normal } = fontsize
 
 const commonStyle = css`
-  background: ${primary};
-  color: ${light};
   width: 120px;
   height: 40px;
   border: 0;
@@ -47,7 +43,10 @@ export const Button = styled.button<ButtonType>`
     fontcolor = fontcolor ?? 'light'
 
     return css`
-      color: ${fontcolor ?? fontcolor};
+      color: ${color[fontcolor] ?? fontcolor};
+      svg {
+        color: ${color[fontcolor] ?? fontcolor};
+      }
     `
   }}
 `
