@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import styled from 'styled-components'
+import { FiUserPlus, FiLogIn } from 'react-icons/fi'
 import logo from '../assets/images/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -24,6 +25,10 @@ const StyledHeader = styled.header`
 
     .right {
       text-align: right;
+
+      a + a {
+        margin-left: 5px;
+      }
     }
   }
 `
@@ -40,10 +45,16 @@ const Header = () => {
         </div>
         <div className="right">
           <Link href="/member/join">
-            <Button type="button">회원가입</Button>
+            <Button type="button">
+              <FiUserPlus />
+              회원가입
+            </Button>
           </Link>
           <Link href="/member/login">
-            <Button type="button">로그인</Button>
+            <Button type="button" color="secondary">
+              <FiLogIn />
+              로그인
+            </Button>
           </Link>
         </div>
       </div>

@@ -9,6 +9,14 @@ const commonStyle = css`
   height: 40px;
   border: 0;
   cursor: pointer;
+  border-radius: 3px;
+  & + & {
+    margin-left: 5px;
+  }
+
+  svg {
+    margin-right: 10px;
+  }
 `
 
 export const Button = styled.button<ButtonType>`
@@ -33,9 +41,12 @@ export const Button = styled.button<ButtonType>`
   }}
     
     ${({ fontsize: size }) => {
-    size = size ?? 'normal'
+    size = size ?? 'medium'
     return css`
       font-size: ${fontsize[size] ?? size};
+      svg {
+        font-size: ${fontsize[size] ?? size};
+      }
     `
   }}
 
