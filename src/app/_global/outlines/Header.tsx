@@ -4,7 +4,23 @@ import styled from 'styled-components'
 import logo from '../assets/images/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
-const StyledHeader = styled.header``
+const StyledHeader = styled.header`
+  .inner {
+    display: flex;
+    div {
+      width: 0;
+      flex-grow: 1;
+    }
+
+    .logo-section {
+      text-align: center;
+    }
+
+    .right {
+      text-align: right;
+    }
+  }
+`
 
 const Header = () => {
   return (
