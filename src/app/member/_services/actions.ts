@@ -1,5 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+
 /**
  * 회원가입 처리
  *
@@ -89,7 +91,7 @@ export async function processJoin(errors, formData: FormData) {
 export async function processLogin(errors, formData: FormData) {
   errors = {}
   let hasErrors: boolean = false
-  const params: { email?: string; password?: string } = {
+  const params: { email?: string; password?: string; redirectUrl?: string } = {
     email: formData.get('email')?.toString(),
     password: formData.get('password')?.toString(),
   }
@@ -122,7 +124,12 @@ export async function processLogin(errors, formData: FormData) {
   if (res.status === 200) {
     // 로그인 성공, 토큰 발급 성공
     const token = await res.text()
-    console.log('token', token)
+    // 로그인 처리 - 토큰을 쿠키에 저장
+    const cookie = await cookies()
+    cookie.set('token', token, {
+      httpOnly: true,
+      path: '/',
+    })
   } else {
     // 로그인 실패
     const json = await res.json()
