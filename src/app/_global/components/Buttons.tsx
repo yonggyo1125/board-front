@@ -40,7 +40,7 @@ export const Button = styled.button<ButtonType>`
     `
   }}
     
-    ${({ fontsize: size }) => {
+    ${({ fontSize: size }) => {
     size = size ?? 'medium'
     return css`
       font-size: ${fontsize[size] ?? size};
@@ -50,13 +50,13 @@ export const Button = styled.button<ButtonType>`
     `
   }}
 
-  ${({ fontcolor }) => {
-    fontcolor = fontcolor ?? 'light'
+  ${({ fontColor }) => {
+    fontColor = fontColor ?? 'light'
 
     return css`
-      color: ${color[fontcolor] ?? fontcolor};
+      color: ${color[fontColor] ?? fontColor};
       svg {
-        color: ${color[fontcolor] ?? fontcolor};
+        color: ${color[fontColor] ?? fontColor};
       }
     `
   }}
@@ -64,7 +64,7 @@ export const Button = styled.button<ButtonType>`
 
 export const SubmitButton = (props) => {
   return (
-    <Button {...props} width="100%" height={60} fontsize="extra">
+    <Button {...props} width="100%" height={60} fontSize="extra">
       {props.children}
     </Button>
   )
