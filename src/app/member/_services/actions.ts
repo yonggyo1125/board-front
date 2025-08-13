@@ -62,10 +62,13 @@ export async function processJoin(errors, formData: FormData) {
       body: JSON.stringify(params),
     })
 
-    console.log('status:', res.status)
-  } catch (err) { // API 백앤드에서 검증 실패시 메세지
-    hasErrors = true;
-    console.log('err', err)
+    // API 백앤드에서 검증 실패시 메세지
+    if (res.status !== 201) {
+      const { messages } = await res.json()
+      return messages
+    }
+  } catch (err: any) {
+    return { global: err?.message }
   }
 
   // 검증 실패시에는 에레 메세지를 출력하기 위한 상태값을 반환
