@@ -13,7 +13,7 @@ export async function processJoin(errors, formData: FormData) {
     if (key.startsWith('$ACTION_')) continue
     let _value: string | boolean = value.toString()
     if (['true', 'false'].includes(_value)) {
-      _value = Boolean(_value)
+      _value = _value === 'true'
     }
 
     params[key] = _value
@@ -51,12 +51,27 @@ export async function processJoin(errors, formData: FormData) {
     hasErrors = true
   }
 
+  // 회원 가입 처리를 위해  API 서버에 요청
+  try {
+    const apiUrl = `${process.env.API_URL}/member`
+    const res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
+
+    console.log('status:', res.status)
+  } catch (err) { // API 백앤드에서 검증 실패시 메세지
+    hasErrors = true;
+    console.log('err', err)
+  }
+
   // 검증 실패시에는 에레 메세지를 출력하기 위한 상태값을 반환
   if (hasErrors) {
     return errors
   }
-
-  // 회원 가입 처리를 위해  API 서버에 요청
 
   // 회원가입 완료시 로그인 페이지로 이동
   redirect('/member/login')
