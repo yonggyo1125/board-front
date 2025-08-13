@@ -7,6 +7,7 @@ import { SubmitButton } from '@/app/_global/components/Buttons'
 const StyledForm = styled.form``
 
 const JoinForm = ({ errors, action, pending, onChange, onToggle, form }) => {
+  console.log('errors', errors)
   return (
     <StyledForm action={action} autoComplete="off">
       <input type="hidden" name="termsAgree" value={form.termsAgree} />
@@ -52,7 +53,9 @@ const JoinForm = ({ errors, action, pending, onChange, onToggle, form }) => {
         약관에 동의합니다.
       </div>
       <div>약관 동의 작성...</div>
-      <SubmitButton type="submit">가입하기</SubmitButton>
+      <SubmitButton type="submit" disabled={pending}>
+        가입하기
+      </SubmitButton>
     </StyledForm>
   )
 }
