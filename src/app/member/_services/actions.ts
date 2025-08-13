@@ -149,7 +149,7 @@ export async function processLogin(errors, formData: FormData) {
 export async function getLoggedMember() {
   try {
     const cookie = await cookies()
-    const token = cookie.get('token')
+    const token = cookie.get('token')?.value
     if (!token) return
 
     const apiUrl = `${process.env.API_URL}/member`
@@ -160,11 +160,9 @@ export async function getLoggedMember() {
       },
     })
 
-    if (res.status !== 200) {
-      return
+    if (res.status === 200) {
+      return await res.json()
     }
-
-    return await res.json()
   } catch (err) {
     console.log('getLoggedMember() error:', err)
   }
