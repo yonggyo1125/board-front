@@ -6,7 +6,7 @@ import MessageBox from '@/app/_global/components/MessageBox'
 
 const StyledForm = styled.form``
 
-const LoginForm = () => {
+const LoginForm = ({ errors, action, pending, form, onChange }) => {
   return (
     <StyledForm autoComplete="off">
       <Input type="text" name="email" placeholder="이메일을 입력하세요." />

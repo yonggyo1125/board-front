@@ -79,3 +79,11 @@ export async function processJoin(errors, formData: FormData) {
   // 회원가입 완료시 로그인 페이지로 이동
   redirect('/member/login')
 }
+
+/**
+ * 로그인 처리
+ *
+ * @param errors
+ * @param formData
+ */
+export async function processLogin(errors, formData: FormData) {}
