@@ -93,7 +93,7 @@ export async function processLogin(errors, formData: FormData) {
     email: formData.get('email')?.toString(),
     password: formData.get('password')?.toString(),
   }
-
+  // 유효성 검사 S
   if (!params.email || !params.email.trim()) {
     errors.email = '이메일을 입력하세요.'
     hasErrors = true
@@ -102,5 +102,30 @@ export async function processLogin(errors, formData: FormData) {
   if (!params.password || !params.password.trim()) {
     errors.password = '비밀번호를 입력하세요.'
     hasErrors = true
+  }
+  // 유효성 검사 E
+
+  if (hasErrors) {
+    return errors
+  }
+
+  // API 백앤드로 요청을 보냄
+  const apiUrl = `${process.env.API_URL}/member/token`
+  const res = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(params),
+  })
+
+  if (res.status === 200) {
+    // 로그인 성공, 토큰 발급 성공
+    const token = await res.text()
+    console.log('token', token)
+  } else {
+    // 로그인 실패
+    const json = await res.json()
+    return json.messages.global ? json.messages : { global: json.messages }
   }
 }
