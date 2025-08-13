@@ -16,6 +16,10 @@ const commonStyle = css`
   &:focus {
     border-color: ${dark};
   }
+
+  & + & {
+    margin-top: 10px;
+  }
 `
 
 type CommonType = {
