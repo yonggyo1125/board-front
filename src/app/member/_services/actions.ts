@@ -1,10 +1,11 @@
 'use server'
+import { redirect } from 'next/navigation'
 /**
  * 회원가입 처리
  *
  */
 export async function processJoin(errors, formData: FormData) {
-  errors = errors ?? {}
+  errors = {}
   const params: any = {}
 
   // 필요한 필드와 값만 추출
@@ -49,4 +50,14 @@ export async function processJoin(errors, formData: FormData) {
     errors.confirmPassword.push('비밀번호가 일치하지 않습니다.')
     hasErrors = true
   }
+
+  // 검증 실패시에는 에레 메세지를 출력하기 위한 상태값을 반환
+  if (hasErrors) {
+    return errors
+  }
+
+  // 회원 가입 처리를 위해  API 서버에 요청
+
+  // 회원가입 완료시 로그인 페이지로 이동
+  redirect('/member/login')
 }
