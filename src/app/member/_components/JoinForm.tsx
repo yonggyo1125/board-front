@@ -1,13 +1,15 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+
+`;
+
 const JoinForm = ({ errors, action, pending }) => {
   return (
-    <form action={action} autoComplete="off">
-      <input type="text" name="email" />
-      <input type="password" name="password" />
-      <button type="submit" disabled={pending}>
-        가입
-      </button>
-    </form>
+    <StyledForm action={action} autoComplete="off">
+     
+    </StyledForm>
   )
 }
 
