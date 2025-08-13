@@ -21,7 +21,11 @@ const MessageBox = ({ children, color, message }: MessageType) => {
   if (message.length === 0) return <></>
 
   return message.map((m, i) => (
-    <StyledMessage key={i + '-' + m} color={color ?? 'primary'}>
+    <StyledMessage
+      className="message"
+      key={i + '-' + m}
+      color={color ?? 'primary'}
+    >
       {m}
     </StyledMessage>
   ))
