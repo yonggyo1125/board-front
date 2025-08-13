@@ -86,4 +86,21 @@ export async function processJoin(errors, formData: FormData) {
  * @param errors
  * @param formData
  */
-export async function processLogin(errors, formData: FormData) {}
+export async function processLogin(errors, formData: FormData) {
+  errors = {}
+  let hasErrors: boolean = false
+  const params: { email?: string; password?: string } = {
+    email: formData.get('email')?.toString(),
+    password: formData.get('password')?.toString(),
+  }
+
+  if (!params.email || !params.email.trim()) {
+    errors.email = '이메일을 입력하세요.'
+    hasErrors = true
+  }
+
+  if (!params.password || !params.password.trim()) {
+    errors.password = '비밀번호를 입력하세요.'
+    hasErrors = true
+  }
+}
