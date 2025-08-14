@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 'use client'
 import useUser from '../hooks/useUser'
 import LoginContainer from '@/app/member/_containers/LoginContainer'
-export default function withUserOnly(Component) {
+export default function UserOnlyContainer({ children }) {
   const { isLogin } = useUser()
-  return isLogin ? LoginContainer : Component
+
+  return isLogin ? children : <LoginContainer />
 }
