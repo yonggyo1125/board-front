@@ -14,7 +14,7 @@ const StyledContentBox = styled.section<{
     `}
 `
 
-const ContentBox = ({ children, width }) => {
+const ContentBox = ({ children, width }): any => {
   return (
     <StyledContentBox className="layout-width" width={width}>
       {children}
