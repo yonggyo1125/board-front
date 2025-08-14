@@ -6,6 +6,7 @@ import Footer from './_global/outlines/Footer'
 import StyledComponentsRegistry from './registry'
 import { getLoggedMember } from './member/_services/actions'
 import { UserProvider } from './_global/contexts/UserContext'
+import { CommonProvider } from './_global/contexts/CommonContext'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
@@ -28,11 +29,13 @@ export default async function RootLayout({
     <html lang="ko">
       <body>
         <StyledComponentsRegistry>
-          <UserProvider loggedMember={member}>
-            <Header />
-            <main className="main-content">{children}</main>
-            <Footer />
-          </UserProvider>
+          <CommonProvider>
+            <UserProvider loggedMember={member}>
+              <Header />
+              <main className="main-content">{children}</main>
+              <Footer />
+            </UserProvider>
+          </CommonProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
