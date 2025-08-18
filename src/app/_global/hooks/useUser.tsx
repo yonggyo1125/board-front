@@ -9,9 +9,11 @@ export default function useUser() {
   } = useContext(UserContext)
 
   useEffect(() => {
+    console.log(isLogin, loggedMember, token)
     if (!isLogin) {
       ;(async () => {
         const member = await getLoggedMember()
+
         if (member) {
           setLoggedMember(member)
           setIsLogin(true)
