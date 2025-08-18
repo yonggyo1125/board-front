@@ -4,7 +4,7 @@ import UserContext from '../contexts/UserContext'
 import { getLoggedMember } from '@/app/member/_services/actions'
 export default function useUser() {
   const {
-    states: { loggedMember, isLogin, isAdmin },
+    states: { loggedMember, isLogin, isAdmin, token },
     actions: { setLoggedMember, setIsAdmin, setIsLogin },
   } = useContext(UserContext)
 
@@ -21,5 +21,5 @@ export default function useUser() {
     }
   }, [isLogin, setIsAdmin, setIsLogin, setLoggedMember])
 
-  return { loggedMember, isLogin, isAdmin }
+  return { loggedMember, isLogin, isAdmin, token }
 }
