@@ -1,4 +1,3 @@
-'use client'
 import { cookies } from 'next/headers'
 
 /**
@@ -6,9 +5,7 @@ import { cookies } from 'next/headers'
  *
  */
 export async function getToken() {
-  'use server'
-
   const cookie = await cookies()
 
-  return cookie.get('token')?.value;
+  return cookie.get('token')?.value
 }

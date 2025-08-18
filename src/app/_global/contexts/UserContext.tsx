@@ -7,7 +7,12 @@ type UserContextType = {
 }
 
 const UserContext = createContext<UserContextType>({
-  states: { loggedMember: undefined, isLogin: false, isAdmin: false },
+  states: {
+    loggedMember: undefined,
+    isLogin: false,
+    isAdmin: false,
+    token: null,
+  },
   actions: {
     setLoggedMember: undefined,
     setIsLogin: undefined,
@@ -15,7 +20,7 @@ const UserContext = createContext<UserContextType>({
   },
 })
 
-function UserProvider({ children, loggedMember }) {
+function UserProvider({ children, loggedMember, token }) {
   const [member, setLoggedMember] = useState(loggedMember)
   const [isLogin, setIsLogin] = useState(Boolean(loggedMember))
   const [isAdmin, setIsAdmin] = useState(
@@ -23,7 +28,7 @@ function UserProvider({ children, loggedMember }) {
   )
 
   const value = {
-    states: { loggedMember: member, isLogin, isAdmin },
+    states: { loggedMember: member, isLogin, isAdmin, token },
     actions: { setLoggedMember, setIsLogin, setIsAdmin },
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

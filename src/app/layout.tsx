@@ -5,6 +5,7 @@ import Header from './_global/outlines/Header'
 import Footer from './_global/outlines/Footer'
 import StyledComponentsRegistry from './registry'
 import { getLoggedMember } from './member/_services/actions'
+import { getToken } from './_global/libs/utils'
 import { UserProvider } from './_global/contexts/UserContext'
 import { CommonProvider } from './_global/contexts/CommonContext'
 import { redirect } from 'next/navigation'
@@ -30,7 +31,7 @@ export default async function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <CommonProvider>
-            <UserProvider loggedMember={member}>
+            <UserProvider loggedMember={member} token={cookie.get('token')?.value}>
               <Header />
               <main className="main-content">{children}</main>
               <Footer />
