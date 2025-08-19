@@ -6,6 +6,8 @@ import DetectedItems from '../components/DetectedItems'
 const DetectContainer = () => {
   const [items, setItems] = useState([])
   const callback = useCallback((items) => {
+    if (items.length === 0) return
+
     setItems(items)
   }, [])
 

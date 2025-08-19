@@ -71,7 +71,8 @@ const DetectObject = ({ width, height, callback }: PropType) => {
           const callbackItems: Array<{
             category1: string
             category2: string
-            dataUrl?: string | null
+            dataUrl: string | null
+            blob: Blob | null
           }> = []
           for (const [x1, y1, x2, y2, , , cls] of items) {
             const w = Math.abs(x2 - x1)
@@ -93,24 +94,28 @@ const DetectObject = ({ width, height, callback }: PropType) => {
             cropCanvas.width = w
             cropCanvas.height = h
             const ctxCrop = cropCanvas.getContext('2d')
-            let dataUrl: string | null = null
+
             if (ctxCrop) {
-              ctxCrop.drawImage(img, x1, y1, w, h, 0, 0, w, h)
-              dataUrl = cropCanvas.toDataURL()
+              img.onload = () => {
+                ctxCrop.drawImage(img, x1, y1, w, h, 0, 0, w, h)
+                const dataUrl = cropCanvas.toDataURL()
+                cropCanvas.toBlob((blob) => {
+                  callbackItems.push({
+                    category1: cls,
+                    category2: category[cls],
+                    dataUrl,
+                    blob,
+                  })
+
+                  // 후속처리 함수 호출
+                  callback(callbackItems)
+                })
+              }
             }
-
-            callbackItems.push({
-              category1: cls,
-              category2: category[cls],
-              dataUrl,
-            })
           }
-
-          // 후속처리 함수 호출
-          callback(callbackItems)
         })
     })
-  }, [canvasRef, layerRef, width, height])
+  }, [canvasRef, layerRef, width, height, callback])
 
   useEffect(() => {
     const video = videoRef.current
