@@ -1,5 +1,18 @@
-import Image from 'next/image'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { color } from '../libs'
+
+const StyledItem = styled.li<{ category?: string }>`
+  border: 3px solid #000;
+  ${({ category }) =>
+    category &&
+    css`
+      border-color: ${color[category] ?? '#000'};
+      .category {
+        background: ${color[category] ?? '#000'};
+        color: #fff;
+      }
+    `}
+`
 
 const StyledItems = styled.ul`
   display: flex;
@@ -8,7 +21,7 @@ const StyledItems = styled.ul`
   li {
     width: 100px;
     height: 100px;
-    border: 2px solid #000;
+
     position: relative;
 
     .category {
@@ -18,6 +31,7 @@ const StyledItems = styled.ul`
       text-align: center;
       height: 25px;
       line-height: 25px;
+      width: 100%;
     }
   }
 
@@ -31,16 +45,19 @@ export default function DetectedItems({ items }) {
     items &&
     items.length > 0 && (
       <StyledItems>
-        {items.map(({ category2, dataUrl }, i) => (
-          <li
+        {items.map(({ category1, category2, dataUrl }, i) => (
+          <StyledItem
+            category={category1}
             key={category2 + '-' + i}
             style={{
-              background: `url(${dataUrl}) no-repeat center center`,
+              backgroundImage: `url(${dataUrl})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
               backgroundSize: 'contain',
             }}
           >
             <div className="category">{category2}</div>
-          </li>
+          </StyledItem>
         ))}
       </StyledItems>
     )
