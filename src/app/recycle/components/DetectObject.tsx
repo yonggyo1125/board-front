@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   }
 `
 
-const DetectObject = () => {
+const DetectObject = ({width, height, callback}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const layerRef = useRef<HTMLCanvasElement | null>(null)
@@ -30,7 +30,9 @@ const DetectObject = () => {
     if (!ctx) return
 
     ctx.lineWidth = 5
+    ctx.fillStyle = 'transparent'
     ctx.strokeStyle = 'red'
+    ctx.font = '13px bold'
     ctx.clearRect(0, 0, 500, 500)
 
     canvas.toBlob((blob) => {
@@ -48,8 +50,15 @@ const DetectObject = () => {
           for (const [x1, y1, x2, y2, , , cls] of items) {
             const w = Math.abs(x2 - x1)
             const h = Math.abs(y2 - y1)
+
+            ctx.strokeStyle = color[cls]
             ctx.strokeRect(x1, y1, w, h)
-            console.log(cls, category[cls])
+
+            ctx.fillStyle = color[cls]
+            ctx.fillRect(x1, y1, w, 20)
+
+            ctx.fillStyle = '#fff'
+            ctx.fillText(category[cls], x1 + 10, y1 + 13)
           }
         })
     })
@@ -71,7 +80,7 @@ const DetectObject = () => {
 
         detectInterval = setInterval(() => {
           detect()
-        }, 1000)
+        }, 500)
       })
       .catch((err) => {
         // 웹캠이 설치되어 있지 않거나, 웹캠 권한을 허용하지 않은 경우..
