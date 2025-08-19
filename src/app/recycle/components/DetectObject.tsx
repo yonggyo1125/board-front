@@ -105,6 +105,9 @@ const DetectObject = ({ width, height, callback }: PropType) => {
               dataUrl,
             })
           }
+
+          // 후속처리 함수 호출
+          callback(callbackItems)
         })
     })
   }, [canvasRef, layerRef, width, height])
