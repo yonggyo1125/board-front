@@ -1,9 +1,21 @@
 import React, { useRef, useEffect, useCallback } from 'react'
 import { color, category } from '../libs'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ width?: number; height?: number }>`
   position: relative;
+
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}px;
+    `}
+
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height}px;
+    `}
 
   video {
     display: none;
@@ -16,10 +28,19 @@ const Wrapper = styled.div`
   }
 `
 
-const DetectObject = ({width, height, callback}) => {
+type PropType = {
+  width?: number
+  height?: number
+  callback: (items: any) => void
+}
+
+const DetectObject = ({ width, height, callback }: PropType) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const layerRef = useRef<HTMLCanvasElement | null>(null)
+
+  width = width ?? 500
+  height = height ?? 500
 
   const detect = useCallback(() => {
     const canvas = canvasRef.current
@@ -33,7 +54,7 @@ const DetectObject = ({width, height, callback}) => {
     ctx.fillStyle = 'transparent'
     ctx.strokeStyle = 'red'
     ctx.font = '13px bold'
-    ctx.clearRect(0, 0, 500, 500)
+    ctx.clearRect(0, 0, width, height)
 
     canvas.toBlob((blob) => {
       if (!blob) return
@@ -47,6 +68,11 @@ const DetectObject = ({width, height, callback}) => {
       })
         .then((res) => res.json())
         .then((items) => {
+          const callbackItems: Array<{
+            category1: string
+            category2: string
+            dataUrl?: string | null
+          }> = []
           for (const [x1, y1, x2, y2, , , cls] of items) {
             const w = Math.abs(x2 - x1)
             const h = Math.abs(y2 - y1)
@@ -59,10 +85,29 @@ const DetectObject = ({width, height, callback}) => {
 
             ctx.fillStyle = '#fff'
             ctx.fillText(category[cls], x1 + 10, y1 + 13)
+
+            const img = new Image()
+            img.src = canvas.toDataURL()
+
+            const cropCanvas = document.createElement('canvas')
+            cropCanvas.width = w
+            cropCanvas.height = h
+            const ctxCrop = cropCanvas.getContext('2d')
+            let dataUrl: string | null = null
+            if (ctxCrop) {
+              ctxCrop.drawImage(img, x1, y1, w, h, 0, 0, w, h)
+              dataUrl = cropCanvas.toDataURL()
+            }
+
+            callbackItems.push({
+              category1: cls,
+              category2: category[cls],
+              dataUrl,
+            })
           }
         })
     })
-  }, [canvasRef, layerRef])
+  }, [canvasRef, layerRef, width, height])
 
   useEffect(() => {
     const video = videoRef.current
@@ -72,7 +117,7 @@ const DetectObject = ({width, height, callback}) => {
 
     navigator.mediaDevices
       .getUserMedia({
-        video: { width: 500, height: 500 },
+        video: { width, height },
         audio: false,
       })
       .then((stream) => {
@@ -80,7 +125,7 @@ const DetectObject = ({width, height, callback}) => {
 
         detectInterval = setInterval(() => {
           detect()
-        }, 500)
+        }, 1000)
       })
       .catch((err) => {
         // 웹캠이 설치되어 있지 않거나, 웹캠 권한을 허용하지 않은 경우..
@@ -98,17 +143,17 @@ const DetectObject = ({width, height, callback}) => {
       clearInterval(videoInterval)
       clearInterval(detectInterval)
     }
-  }, [videoRef, canvasRef, detect])
+  }, [videoRef, canvasRef, detect, width, height])
 
   return (
-    <Wrapper>
-      <video ref={videoRef} width={500} height={500} autoPlay></video>
-      <canvas ref={canvasRef} width={500} height={500}></canvas>
+    <Wrapper width={width} height={height}>
+      <video ref={videoRef} width={width} height={height} autoPlay></video>
+      <canvas ref={canvasRef} width={width} height={height}></canvas>
       <canvas
         className="layer"
         ref={layerRef}
-        width={500}
-        height={500}
+        width={width}
+        height={height}
       ></canvas>
     </Wrapper>
   )
