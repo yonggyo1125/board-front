@@ -23,13 +23,15 @@ export async function GET(request: NextRequest) {
 
     const id = await api.getProfile(token)
 
-    const formData = new FormData()
-    formData.append('socialChannel', channel.toUpperCase())
-    formData.append('socialToken', id)
-
     const res = await fetchSSR('/member/token', {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        socialChannel: channel.toUpperCase(),
+        socialToken: id,
+      }),
     })
 
     if (res.status === 200) {
