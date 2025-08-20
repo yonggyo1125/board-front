@@ -10,12 +10,12 @@ import fontsize from '../../styles/fontsize'
 const { medium } = fontsize
 const { dark, black, white } = color
 
-const StyleSubMenu = styled.nav`
+const StyledSubMenu = styled.nav`
   display: flex;
   height: 47px;
   box-shadow: 2px 2px 5px ${dark};
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   a {
     line-height: 45px;
     font-size: ${medium};
@@ -34,9 +34,9 @@ const SubMenu = () => {
   const pathname = usePathname()
 
   return (
-    <StyleSubMenu>
-      {items.length > 0 &&
-        items.map(({ link, text }, i) => (
+    items.length > 0 && (
+      <StyledSubMenu>
+        {items.map(({ link, text }, i) => (
           <Link
             href={link}
             key={link + '-' + i}
@@ -45,7 +45,8 @@ const SubMenu = () => {
             {text}
           </Link>
         ))}
-    </StyleSubMenu>
+      </StyledSubMenu>
+    )
   )
 }
 
