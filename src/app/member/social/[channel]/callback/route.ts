@@ -7,11 +7,14 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
   const redirectUrl = searchParams.get('state') ?? '/'
+  const api = new KakaoApi()
   try {
     if (!code) {
       throw new Error('인증코드 누락')
     }
-    
+
+    const token = await api.getToken(code)
+    console.log('token', token)
 
     return NextResponse.json({})
   } catch (err) {

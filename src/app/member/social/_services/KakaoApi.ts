@@ -24,7 +24,7 @@ export default class KakaoApi implements SocialApi {
       return access_token
     }
 
-    return ''
+    return null
   }
 
   async getProfile(token: string) {
