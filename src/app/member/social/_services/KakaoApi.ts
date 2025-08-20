@@ -1,6 +1,4 @@
-'use client'
 import SocialApi from './SocialApi'
-import { fetchSSR } from '@/app/_global/libs/utils'
 
 export default class KakaoApi implements SocialApi {
   constructor(
