@@ -36,7 +36,7 @@ export default class KakaoApi implements SocialApi {
 
     if (res.status === 200) {
       const { id } = await res.json()
-      return { id }
+      return id
     }
 
     return null
