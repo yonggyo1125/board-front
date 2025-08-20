@@ -14,7 +14,9 @@ export async function GET(request: NextRequest) {
     }
 
     const token = await api.getToken(code)
-    console.log('token', token)
+    if (!token) {
+      throw new Error('Access Token 발급 실패')
+    }
 
     return NextResponse.json({})
   } catch (err) {

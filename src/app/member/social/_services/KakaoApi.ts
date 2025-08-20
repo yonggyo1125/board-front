@@ -15,7 +15,6 @@ export default class KakaoApi implements SocialApi {
 
     const res = await fetch('https://kauth.kakao.com/oauth/token', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: formData,
     })
 
@@ -28,7 +27,19 @@ export default class KakaoApi implements SocialApi {
   }
 
   async getProfile(token: string) {
-    return { id: '' }
+    const res = await fetch('https://kapi.kakao.com/v2/user/me', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (res.status === 200) {
+      const { id } = await res.json()
+      return { id }
+    }
+
+    return null
   }
 
   getUrl(redirectUrl: string = '/') {
