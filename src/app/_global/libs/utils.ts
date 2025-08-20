@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { headers } from 'next/headers'
 
 /**
  * token 쿠키값 조회
@@ -28,8 +29,10 @@ export async function fetchSSR(url, options: RequestInit = {}) {
   const userHash = await getUserHash()
   if (userHash) {
     options.headers = options.headers ?? {}
-    options.headers['User-Hash'] = userHash;
+    options.headers['User-Hash'] = userHash
   }
 
   return fetch(`${process.env.API_URL}${url}`, options)
 }
+
+
