@@ -52,6 +52,10 @@ img {
   display: flex;
 }
 
+.mb30 {
+  margin-bottom: 30px !important;
+}
+
 main.main-content {
   min-height: 650px;
 }
