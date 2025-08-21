@@ -6,7 +6,7 @@ import { FaRegWindowClose } from 'react-icons/fa'
 import LayerPopup from './LayerPopup'
 import useFetchCSR from '../hooks/useFetchCSR'
 import color from '../styles/color'
-const { dark } = color
+const { dark, white } = color
 
 const ImageItems = styled.ul`
   display: flex;
@@ -23,7 +23,7 @@ const ImageItems = styled.ul`
       right: 5px;
       cursor: pointer;
       font-size: 1.5rem;
-      color: ${dark};
+      color: ${white};
     }
 
     img {

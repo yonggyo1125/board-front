@@ -96,7 +96,7 @@ const JoinForm = ({
       <FileUpload
         gid={form.gid}
         imageOnly={true}
-        single={false}
+        single={true}
         callback={fileUploadCallback}
       />
 
