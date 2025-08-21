@@ -43,6 +43,7 @@ export default class KakaoApi implements SocialApi {
   }
 
   getUrl(redirectUrl: string = '/') {
+    redirectUrl = redirectUrl ? redirectUrl : '/'
     return `https://kauth.kakao.com/oauth/authorize?client_id=${this.apiKey}&redirect_uri=${this.redirectUri}&response_type=code&state=${redirectUrl}`
   }
 }
