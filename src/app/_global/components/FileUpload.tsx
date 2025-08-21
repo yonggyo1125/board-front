@@ -55,9 +55,13 @@ const FileBox = ({ gid, location, single, imageOnly, callback }: FileType) => {
         body: formData,
       })
         .then((res) => res.json())
-        .then((items) => console.log('items', items))
+        .then((items) => {
+          if (typeof callback === 'function') {
+            callback(items)
+          }
+        })
     }
-  }, [fetchCSR])
+  }, [fetchCSR, gid, location, imageOnly, single, callback])
 
   return (
     <>
