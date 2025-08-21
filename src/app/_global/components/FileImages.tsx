@@ -5,8 +5,37 @@ import Image from 'next/image'
 import { FaRegWindowClose } from 'react-icons/fa'
 import LayerPopup from './LayerPopup'
 import useFetchCSR from '../hooks/useFetchCSR'
+import color from '../styles/color'
+const { dark } = color
 
-const ImageItems = styled.ul``
+const ImageItems = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  li {
+    border: 3px solid ${dark};
+    position: relative;
+    margin: 3px 0;
+    border-radius: 3px;
+
+    .remove {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: ${dark};
+    }
+
+    img {
+      cursor: pointer;
+      display: block;
+    }
+  }
+
+  li + li {
+    margin-left: 5px;
+  }
+`
 
 type FileType = {
   items: any
@@ -67,7 +96,7 @@ const FileImages = ({ items, width, height, callback }: FileType) => {
   if (items.length === 0) return <></>
   width = width ?? 100
   height = height ?? 100
-  console.log('items', items)
+
   return (
     <ImageItems>
       {items.map((item) => (

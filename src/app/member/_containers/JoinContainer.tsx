@@ -49,6 +49,15 @@ const JoinContainer = () => {
     }
   }, [])
 
+  // 프로필 이미지 삭제 후 후속 처리
+  const fileDeleteCallback = useCallback(() => {
+    setForm((prev) => {
+      const form = { ...prev }
+      delete form.profileImage
+      return form
+    })
+  }, [])
+
   return (
     <JoinForm
       errors={errors}
@@ -57,6 +66,7 @@ const JoinContainer = () => {
       onChange={onChange}
       onToggle={onToggle}
       fileUploadCallback={fileUploadCallback}
+      fileDeleteCallback={fileDeleteCallback}
       form={form}
     />
   )
