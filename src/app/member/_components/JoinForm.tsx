@@ -15,6 +15,19 @@ const JoinForm = ({ errors, action, pending, onChange, onToggle, form }) => {
   return (
     <StyledForm action={action} autoComplete="off">
       <input type="hidden" name="termsAgree" value={form.termsAgree} />
+      {form.socialChannel && form.socialToken && (
+        <>
+          <input
+            type="hidden"
+            name="socialChannel"
+            value={form.socialChannel}
+          />
+
+          <input type="hidden" name="socialToken" value={form.socialToken} />
+          <div>KAKAO 계정 연결 회원가입</div>
+        </>
+      )}
+
       <Input
         type="text"
         name="email"
@@ -23,25 +36,28 @@ const JoinForm = ({ errors, action, pending, onChange, onToggle, form }) => {
         onChange={onChange}
       />
       <MessageBox color="danger">{errors?.email}</MessageBox>
+      {!form?.socialChannel ||
+        (!form?.socialToken && (
+          <>
+            <Input
+              type="password"
+              name="password"
+              placeholder="비밀번호를 입력하세요."
+              value={form.password}
+              onChange={onChange}
+            />
+            <MessageBox color="danger">{errors?.password}</MessageBox>
 
-      <Input
-        type="password"
-        name="password"
-        placeholder="비밀번호를 입력하세요."
-        value={form.password}
-        onChange={onChange}
-      />
-      <MessageBox color="danger">{errors?.password}</MessageBox>
-
-      <Input
-        type="password"
-        name="confirmPassword"
-        placeholder="비밀번호를 확인하세요."
-        value={form.confirmPassword}
-        onChange={onChange}
-      />
-      <MessageBox color="danger">{errors?.confirmPassword}</MessageBox>
-
+            <Input
+              type="password"
+              name="confirmPassword"
+              placeholder="비밀번호를 확인하세요."
+              value={form.confirmPassword}
+              onChange={onChange}
+            />
+            <MessageBox color="danger">{errors?.confirmPassword}</MessageBox>
+          </>
+        ))}
       <Input
         type="text"
         name="name"

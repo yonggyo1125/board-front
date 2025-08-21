@@ -32,8 +32,8 @@ const LoginContainer = ({ redirectUrl }: { redirectUrl?: string }) => {
   const searchParams = useSearchParams()
 
   const kakaoLoginUrl = useMemo(
-    () => kakaoApi.getUrl(redirectUrl),
-    [redirectUrl],
+    () => kakaoApi.getUrl(form.redirectUrl),
+    [form.redirectUrl],
   )
 
   useEffect(() => {
