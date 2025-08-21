@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
     },
     authInterrupts: true,
   },
+  images: {
+    domains: ['localhost', 'chulfudoc.xyz', 'vinllage.xyz'],
+  },
 }
 
 export default nextConfig

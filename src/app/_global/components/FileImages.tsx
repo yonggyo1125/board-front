@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
+import LayerPopup from './LayerPopup'
 const ImageItems = styled.ul``
 
 type FileType = {
@@ -11,16 +12,31 @@ type FileType = {
 }
 
 const ImageItem = ({ item, width, height }) => {
-  const { seq, fileUrl, thumbBaseUrl, fileName } = item
+  const { seq, fileUrl, thumbBaseUrl, fileName, image } = item
+  const [open, setOpen] = useState<boolean>(false)
+  const onClose = useCallback(() => setOpen(false), [])
+  const onShow = useCallback(() => setOpen(true), [])
   return (
-    <li>
-      <Image
-        src={`${thumbBaseUrl}&width=${width}&height=${height}&crop=true`}
-        alt={fileName}
-        width={width}
-        height={height}
-      />
-    </li>
+    image && (
+      <li>
+        <Image
+          src={`${thumbBaseUrl}&width=${width}&height=${height}&crop=true`}
+          alt={fileName}
+          width={width}
+          height={height}
+          onClick={onShow}
+        />
+        <LayerPopup width={500} isOpen={open} onClose={onClose}>
+          <Image
+            className="org-image"
+            width={500}
+            height={500}
+            src={fileUrl}
+            alt={fileName}
+          />
+        </LayerPopup>
+      </li>
+    )
   )
 }
 
@@ -29,9 +45,10 @@ const FileImages = ({ items, width, height }: FileType) => {
   if (items.length === 0) return <></>
   width = width ?? 100
   height = height ?? 100
+  console.log('items', items)
   return (
     <ImageItems>
-      {items.forEach((item) => (
+      {items.map((item) => (
         <ImageItem
           key={'file-' + item.seq}
           item={item}

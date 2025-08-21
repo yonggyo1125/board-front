@@ -64,6 +64,10 @@ main.main-content {
 .ReactModal__Overlay {
   background: rgba(0, 0, 0, 0.7) !important;
 }
+.ReactModal__Overlay .org-image {
+  width: 100% !important;
+  height: auto !important;
+}
 
 .spinner {
   opacity: 0;
