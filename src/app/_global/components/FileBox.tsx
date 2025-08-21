@@ -18,6 +18,10 @@ const FileBox = ({ gid, location, single, imageOnly, callback }: FileType) => {
   const onUploadClick = useCallback(() => {
     const fileEl = document.createElement('input')
     fileEl.type = 'file'
+    fileEl.multiple = single ? false : true
+    if (imageOnly) {
+      fileEl.accept = 'image/*'
+    }
     fileEl.click()
     fileEl.removeEventListener('change', fileUploadHandler)
     fileEl.addEventListener('change', fileUploadHandler)
