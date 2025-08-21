@@ -20,23 +20,19 @@ const BoardConfigForm = ({
 }) => {
   return (
     <StyledForm action={action} autoComplete="off">
-      <input type="hidden" name="mode" defaultValue={form.mode} />
-      <input type="hidden" name="active" defaultValue={form.active} />
-      <input type="hidden" name="editor" defaultValue={form.editor} />
-      <input type="hidden" name="imageUpload" defaultValue={form.imageUpload} />
-      <input type="hidden" name="attachFile" defaultValue={form.attachFile} />
-      <input type="hidden" name="comment" defaultValue={form.comment} />
+      <input type="hidden" name="mode" value={form.mode} />
+      <input type="hidden" name="active" value={form.active} />
+      <input type="hidden" name="editor" value={form.editor} />
+      <input type="hidden" name="imageUpload" value={form.imageUpload} />
+      <input type="hidden" name="attachFile" value={form.attachFile} />
+      <input type="hidden" name="comment" value={form.comment} />
       <input
         type="hidden"
         name="afterWritingRedirect"
-        defaultValue={form.afterWritingRedirect}
+        value={form.afterWritingRedirect}
       />
-      <input
-        type="hidden"
-        name="showViewList"
-        defaultValue={form.showViewList}
-      />
-      <input type="hidden" name="skin" defaultValue={form.skin} />
+      <input type="hidden" name="showViewList" value={form.showViewList} />
+      <input type="hidden" name="skin" value={form.skin} />
       <input type="hidden" name="listAuthority" value={form.listAuthority} />
       <input type="hidden" name="viewAuthority" value={form.viewAuthority} />
       <input type="hidden" name="writeAuthority" value={form.writeAuthority} />
