@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
+import Image from 'next/image'
 const ImageItems = styled.ul``
 
 type FileType = {
@@ -9,9 +10,18 @@ type FileType = {
   height?: number
 }
 
-const ImageItem = (item) => {
-  const { seq, fileUrl, thumbBaseUrl } = item
-  return <li></li>
+const ImageItem = ({ item, width, height }) => {
+  const { seq, fileUrl, thumbBaseUrl, fileName } = item
+  return (
+    <li>
+      <Image
+        src={`${thumbBaseUrl}&width=${width}&height=${height}&crop=true`}
+        alt={fileName}
+        width={width}
+        height={height}
+      />
+    </li>
+  )
 }
 
 const FileImages = ({ items, width, height }: FileType) => {
@@ -22,7 +32,12 @@ const FileImages = ({ items, width, height }: FileType) => {
   return (
     <ImageItems>
       {items.forEach((item) => (
-        <ImageItem key={'file-' + item.seq} item={item} />
+        <ImageItem
+          key={'file-' + item.seq}
+          item={item}
+          width={width}
+          height={height}
+        />
       ))}
     </ImageItems>
   )
