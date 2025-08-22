@@ -1,6 +1,9 @@
-import React, { useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { color, category } from '../libs'
 import styled, { css } from 'styled-components'
+import useAlertDialog from '@/app/_global/hooks/useAlertDialog'
+import LayerPopup from '@/app/_global/components/LayerPopup'
 
 const Wrapper = styled.div<{ width?: number; height?: number }>`
   position: relative;
@@ -35,12 +38,23 @@ type PropType = {
 }
 
 const DetectObject = ({ width, height, callback }: PropType) => {
+  const [guideOpen, setGuideOpen] = useState<boolean>(false)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const layerRef = useRef<HTMLCanvasElement | null>(null)
 
+  const dialogRef = useRef<boolean>(false)
+  const alertDialog = useAlertDialog()
+  const router = useRouter()
+
   width = width ?? 500
   height = height ?? 500
+
+  // 카메라 권한 설정 안내 팝업 닫기
+  const onPopupClose = useCallback(() => {
+    setGuideOpen(false)
+    router.replace('/')
+  }, [router])
 
   const detect = useCallback(() => {
     const canvas = canvasRef.current
@@ -137,7 +151,16 @@ const DetectObject = ({ width, height, callback }: PropType) => {
       })
       .catch((err) => {
         // 웹캠이 설치되어 있지 않거나, 웹캠 권한을 허용하지 않은 경우..
-        console.log('err', err)
+        if (!dialogRef.current) {
+          dialogRef.current = true
+          alertDialog({
+            text: '웹캠을 설치하시거나 권한을 허용해 주세요.',
+            icon: 'error',
+            callback: () => {
+              setGuideOpen(true)
+            },
+          })
+        }
       })
 
     const ctx = canvas?.getContext('2d')
@@ -151,19 +174,24 @@ const DetectObject = ({ width, height, callback }: PropType) => {
       clearInterval(videoInterval)
       clearInterval(detectInterval)
     }
-  }, [videoRef, canvasRef, detect, width, height])
+  }, [videoRef, canvasRef, detect, width, height, setGuideOpen, alertDialog])
 
   return (
-    <Wrapper width={width} height={height}>
-      <video ref={videoRef} width={width} height={height} autoPlay></video>
-      <canvas ref={canvasRef} width={width} height={height}></canvas>
-      <canvas
-        className="layer"
-        ref={layerRef}
-        width={width}
-        height={height}
-      ></canvas>
-    </Wrapper>
+    <>
+      <Wrapper width={width} height={height}>
+        <video ref={videoRef} width={width} height={height} autoPlay></video>
+        <canvas ref={canvasRef} width={width} height={height}></canvas>
+        <canvas
+          className="layer"
+          ref={layerRef}
+          width={width}
+          height={height}
+        ></canvas>
+      </Wrapper>
+      <LayerPopup isOpen={guideOpen} width={550} onClose={onPopupClose}>
+        <h1>카메라 권한 설정 안내...</h1>
+      </LayerPopup>
+    </>
   )
 }
 
