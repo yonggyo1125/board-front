@@ -9,9 +9,8 @@ type PropType = {
 }
 
 const UpdateContainer = ({ bid }: PropType) => {
-  const boardConfig = useBoardConfig(bid)
-  const [form, setForm] = useState(boardConfig)
-
+  const data = useBoardConfig(bid)
+  const [form, setForm] = useState(data)
   const [errors, action, pending] = useActionState<any, any>(
     processBoardConfig,
     {},
