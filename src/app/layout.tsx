@@ -30,9 +30,6 @@ export default async function RootLayout({
 
   return (
     <html lang="ko">
-      <head>
-        <script src={tmapApiUrl}></script>
-      </head>
       <body id="body">
         <StyledComponentsRegistry>
           <CommonProvider>

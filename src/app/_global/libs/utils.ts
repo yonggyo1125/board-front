@@ -37,15 +37,15 @@ export async function fetchSSR(url, options: RequestInit = {}) {
 export async function toQueryString(search) {
   if (!search) return ''
 
-  const qs = []
+  const qs: Array<string> = []
   for (const [key, value] of Object.entries(search)) {
     if (Array.isArray(value)) {
       // 같은 key값에 여러 값이 있는 쿼리 스트링
       for (const v of value) {
-        qs[key] = v
+        qs.push(`${key}=${v}`)
       }
     } else {
-      qs[key] = value
+      qs.push(`${key}=${value}`)
     }
   }
 
