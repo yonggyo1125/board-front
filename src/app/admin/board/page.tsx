@@ -8,7 +8,6 @@ export default async function BoardListPage({
   searchParams: Promise<CommonSearchType>
 }) {
   const params = await searchParams
-  const data = await getBoardList(params)
-  console.log('data', data)
-  return <ListContainer />
+  const { items, pagination } = await getBoardList(params)
+  return <ListContainer items={items} pagination={pagination} />
 }

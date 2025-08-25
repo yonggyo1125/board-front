@@ -1,7 +1,13 @@
 'use client'
 import React from 'react'
+import type { BoardConfigType } from '@/app/board/_types/BoardType'
 
-const ListContainer = () => {
+type PropType = {
+  items?: Array<BoardConfigType>
+  pagination?: any
+}
+
+const ListContainer = ({ items, pagination}: PropType) => {
   return <></>
 }
 
