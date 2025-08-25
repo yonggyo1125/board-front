@@ -14,7 +14,7 @@ const ListContainer = ({ items, pagination }: PropType) => {
   return (
     <>
       <BoardSearchForm />
-      <BoardItems />
+      <BoardItems items={items} />
       <Pagination pagination={pagination} />
     </>
   )
