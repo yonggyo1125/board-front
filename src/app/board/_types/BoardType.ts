@@ -7,7 +7,7 @@ export type BoardConfigType = {
   name: string
   rowsForPage: number
   pageCount: number
-  skin: 'default' | 'gallery'
+  skin: SkinType
   category?: string
   active: boolean
   editor: boolean
@@ -16,8 +16,8 @@ export type BoardConfigType = {
   comment: boolean
   afterWritingRedirect: boolean
   showViewList: boolean
-  listAuthority: 'ALL'
-  viewAuthority: 'ALL'
-  writeAuthority: 'ALL'
-  commentAuthority: 'ALL'
+  listAuthority: AuthorityType
+  viewAuthority: AuthorityType
+  writeAuthority: AuthorityType
+  commentAuthority: AuthorityType
 }
