@@ -11,6 +11,7 @@ import { Button } from '../components/Buttons'
 import useUser from '../hooks/useUser'
 import LinkLoading from '../components/LinkLoading'
 import FileImages from '../components/FileImages'
+import NoProfileImage from '../assets/images/no_profile.png'
 
 const StyledHeader = styled.header`
   background: #fff;
@@ -91,6 +92,7 @@ const Header = () => {
                   viewOnly={true}
                   width={45}
                   height={45}
+                  fallbackImage={NoProfileImage}
                 />
               </Link>
             </>

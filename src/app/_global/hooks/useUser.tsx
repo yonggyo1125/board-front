@@ -26,11 +26,5 @@ export default function useUser() {
     }
   }, [isLogin, setIsAdmin, setIsLogin, setLoggedMember, token, setToken])
 
-  useEffect(() => {
-    if (loggedMember && !loggedMember.profile) {
-      // 기본 이미지 추가
-    }
-  }, [loggedMember])
-
   return { loggedMember, isLogin, isAdmin, token }
 }
