@@ -64,6 +64,8 @@ const Map = ({ width, height, zoom }: MapType) => {
 
   useEffect(() => {
     if (!map) return
+
+    
   }, [map])
 
   return (
