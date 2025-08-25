@@ -18,7 +18,23 @@ const PageItem = ({
   pages: Array<string>
   page: number
   onClick?: (page: number) => void
-}) => {}
+}) => {
+  return onClick ? (
+    <span
+      onClick={() => onClick(Number(pages[0]))}
+      className={classNames('page', { on: page === Number(pages[0]) })}
+    >
+      {pages[0]}
+    </span>
+  ) : (
+    <a
+      href={pages[1]}
+      className={classNames('page', { on: page === Number(pages[0]) })}
+    >
+      {pages[0]}
+    </a>
+  )
+}
 
 const Pagination = ({ pagination, onClick }: PropType) => {
   if (!pagination || pagination.pages.length === 0) return <></>
@@ -27,25 +43,14 @@ const Pagination = ({ pagination, onClick }: PropType) => {
 
   return (
     <Wrapper>
-      {pages.map((p) =>
-        onClick ? (
-          <span
-            key={'page-' + p}
-            onClick={() => onClick(Number(p[0]))}
-            className={classNames('page', { on: page === Number(p[0]) })}
-          >
-            {p[0]}
-          </span>
-        ) : (
-          <a
-            key={'page-' + p}
-            href={p[1]}
-            className={classNames('page', { on: page === Number(p[0]) })}
-          >
-            {p[0]}
-          </a>
-        ),
-      )}
+      {pages.map((p) => (
+        <PageItem
+          key={'page-' + p[0]}
+          pages={p}
+          page={page}
+          onClick={onClick}
+        />
+      ))}
     </Wrapper>
   )
 }
