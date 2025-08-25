@@ -2,7 +2,7 @@ export type AuthorityType = 'ALL' | 'MEMBER' | 'ADMIN'
 export type SkinType = 'default' | 'gallery'
 
 export type BoardConfigType = {
-  mode?: string
+  mode?: 'register' | 'update'
   bid: string
   name: string
   rowsForPage: number

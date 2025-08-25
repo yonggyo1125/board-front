@@ -2,7 +2,7 @@
 import type { BoardConfigType } from '../_types/BoardType'
 import { fetchSSR } from '@/app/_global/libs/utils'
 
-const defaultData: BoardConfigType = {
+export const defaultData: BoardConfigType = {
   mode: 'register',
   bid: '',
   name: '',
@@ -29,7 +29,9 @@ export default async function getBoardConfig(
   if (bid) {
     const res = await fetchSSR(`/board/config/${bid}`)
     if (res.status === 200) {
-      return await res.json()
+      const _data = await res.json()
+      _data.mode = 'update'
+      return _data
     }
   }
 
