@@ -1,7 +1,6 @@
 import type { BoardConfigType } from '../_types/BoardType'
 import type CommonSearchType from '@/app/_global/types/CommonSearchType'
-import { fetchSSR } from '@/app/_global/libs/utils'
-
+import { fetchSSR, toQueryString } from '@/app/_global/libs/utils'
 
 export const defaultData: BoardConfigType = {
   mode: 'register',
@@ -39,12 +38,19 @@ export async function getBoardConfig(bid?: string): Promise<BoardConfigType> {
 }
 
 /**
- * 게시판 목록 조회 
- * 
- * @param searchParams 
+ * 게시판 목록 조회
+ *
+ * @param searchParams
  */
-export async function getBoardList(searchParams: CommonSearchType) {
+export async function getBoardList(searchParams: CommonSearchType): Promise<{
+  items?: Array<BoardConfigType>
+  pagination?: any
+}> {
   'use server'
-  
-
+  const qs = await toQueryString(searchParams)
+  const res = await fetchSSR(`/board/configs/all${qs}`)
+  if (res.status === 200) {
+    return await res.json()
+  }
+  return {}
 }
