@@ -1,4 +1,4 @@
-import Tmap from './_global/components/Tmap'
+import Map from './_global/components/Map'
 export default function MainPage() {
-  return <Tmap />
+  return <Map />
 }

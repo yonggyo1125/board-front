@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import './globals.css'
-import Header from './_global/outlines/Header'
-import Footer from './_global/outlines/Footer'
+import Script from 'next/script'
 import StyledComponentsRegistry from './registry'
 import { getLoggedMember } from './member/_services/actions'
 import { UserProvider } from './_global/contexts/UserContext'
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   title: '게시판',
   description: '게시판 설명...',
 }
+
+const tmapApiUrl = `https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=${process.env.NEXT_PUBLIC_TMAP_API_KEY}`
 
 export default async function RootLayout({
   children,
@@ -28,6 +30,9 @@ export default async function RootLayout({
 
   return (
     <html lang="ko">
+      <head>
+        <script src={tmapApiUrl}></script>
+      </head>
       <body id="body">
         <StyledComponentsRegistry>
           <CommonProvider>
