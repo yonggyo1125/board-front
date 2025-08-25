@@ -8,8 +8,29 @@ import {
   MdArrowBackIos,
   MdArrowForwardIos,
 } from 'react-icons/md'
+import color from '../styles/color'
+import fontsize from '../styles/fontsize'
 
-const Wrapper = styled.div``
+const { medium } = fontsize
+const { black, white } = color
+
+const Wrapper = styled.div`
+  margin: 20px auto;
+  display: flex;
+  height: 45px;
+  .page {
+    border: 1px solid ${black};
+    font-size: ${medium};
+    text-align: center;
+    line-height: 43px;
+    border-radius: 3px;
+
+    &.on {
+      background: ${black};
+      color: ${white};
+    }
+  }
+`
 
 type PropType = {
   pagination?: any
@@ -79,15 +100,15 @@ const Pagination = ({ pagination, onClick }: PropType) => {
       {nextRangePage > 0 && (
         <>
           <PageItem
-            pages={[lastPage, `${baseUrl}${lastPage}`]}
-            page={page}
-            icon={<MdLastPage />}
-            onClick={onClick}
-          />
-          <PageItem
             pages={[nextRangePage, `${baseUrl}${nextRangePage}`]}
             page={page}
             icon={<MdArrowForwardIos />}
+            onClick={onClick}
+          />
+          <PageItem
+            pages={[lastPage, `${baseUrl}${lastPage}`]}
+            page={page}
+            icon={<MdLastPage />}
             onClick={onClick}
           />
         </>
