@@ -1,7 +1,6 @@
 'use server'
 
 import { cookies } from 'next/headers'
-import { headers } from 'next/headers'
 
 /**
  * token 쿠키값 조회
@@ -34,5 +33,3 @@ export async function fetchSSR(url, options: RequestInit = {}) {
 
   return fetch(`${process.env.API_URL}${url}`, options)
 }
-
-
