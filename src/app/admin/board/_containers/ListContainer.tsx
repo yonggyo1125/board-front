@@ -12,17 +12,19 @@ type PropType = {
 
 const ListContainer = ({ items, pagination }: PropType) => {
   const [_items, setItems] = useState<Array<BoardConfigType> | undefined>(items)
-  const onToggle = useCallback((bid) => {
-    setItems((prevItems) =>
-      prevItems?.map((item) =>
+  const [isCheckAll, setCheckAll] = useState<boolean>(false)
+
+  const onToggle = useCallback((bid?: string, mode?: 'check' | 'uncheck') => {
+    setItems((prevItems) => {
+      return prevItems?.map((item) =>
         item.bid === bid ? { ...item, chk: !Boolean(item.chk) } : item,
-      ),
-    )
+      )
+    })
   }, [])
   return (
     <>
       <BoardSearchForm />
-      <BoardItems items={_items} onToggle={onToggle} />
+      <BoardItems items={_items} onToggle={onToggle} isCheckAll={isCheckAll} />
       <Pagination pagination={pagination} />
     </>
   )

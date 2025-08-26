@@ -33,16 +33,24 @@ const StyledForm = styled.form`
 const BoardItems = ({
   items,
   onToggle,
+  isCheckAll,
 }: {
   items?: Array<BoardConfigType>
-  onToggle: (bid: string) => void
+  onToggle: (bid?: string, mode?: 'check' | 'uncheck') => void
+  isCheckAll: boolean
 }) => {
   return (
     <StyledForm autoComplete="off">
       <TableRows>
         <thead>
           <tr>
-            <th></th>
+            <th
+              onClick={() =>
+                onToggle(undefined, isCheckAll ? 'uncheck' : 'check')
+              }
+            >
+              {isCheckAll ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+            </th>
             <th>게시판ID</th>
             <th>게시판이름</th>
             <th></th>
@@ -52,7 +60,9 @@ const BoardItems = ({
           {items && items.length > 0 ? (
             items.map(({ chk, bid, name }) => (
               <tr key={'board-' + bid}>
-                <td>{chk ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}</td>
+                <td onClick={() => onToggle(bid)}>
+                  {chk ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </td>
                 <td>{bid}</td>
                 <td>{name}</td>
                 <td>
