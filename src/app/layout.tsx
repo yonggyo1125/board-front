@@ -2,7 +2,6 @@
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import './globals.css'
-import Script from 'next/script'
 import StyledComponentsRegistry from './registry'
 import { getLoggedMember } from './member/_services/actions'
 import { UserProvider } from './_global/contexts/UserContext'
@@ -14,8 +13,6 @@ export const metadata: Metadata = {
   title: '게시판',
   description: '게시판 설명...',
 }
-
-const tmapApiUrl = `https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=${process.env.NEXT_PUBLIC_TMAP_API_KEY}`
 
 export default async function RootLayout({
   children,

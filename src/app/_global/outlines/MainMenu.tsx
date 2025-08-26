@@ -63,7 +63,7 @@ const MainMenu = () => {
     }
     timeoutRef.current = setTimeout(() => {
       setOpen(false)
-    }, 1000)
+    }, 300)
   }, [subMenuRef])
   return (
     <>
