@@ -85,17 +85,21 @@ const BoardItems = ({
               </tr>
             ))
           ) : (
-            <tr className="no-data">
-              <td colSpan={4}>조회된 게시판이 없습니다.</td>
+            <tr>
+              <td colSpan={4} className="no-data">
+                조회된 게시판이 없습니다.
+              </td>
             </tr>
           )}
         </tbody>
       </TableRows>
-      <div className="table-action">
-        <Button type="button" color="warning" width={200} onClick={onRemove}>
-          선택한 게시판 삭제하기
-        </Button>
-      </div>
+      {items && items.length > 0 && (
+        <div className="table-action">
+          <Button type="button" color="warning" width={200} onClick={onRemove}>
+            선택한 게시판 삭제하기
+          </Button>
+        </div>
+      )}
     </StyledForm>
   )
 }

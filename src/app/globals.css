@@ -56,8 +56,21 @@ img {
   margin-bottom: 30px !important;
 }
 
+.mr5 {
+  margin-right: 5px !important;
+}
+
+.w150 {
+  width: 150px !important;
+}
+
 main.main-content {
   min-height: 650px;
+}
+
+.no-data {
+  padding: 100px 0 !important;
+  text-align: center !important;
 }
 
 /* 모달 레이어 배경 */
