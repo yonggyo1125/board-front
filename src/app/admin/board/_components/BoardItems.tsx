@@ -39,9 +39,11 @@ const BoardItems = ({
   items,
   onToggle,
   isCheckAll,
+  onRemove,
 }: {
   items?: Array<BoardConfigType>
   onToggle: (bid?: string, mode?: 'check' | 'uncheck') => void
+  onRemove: () => void
   isCheckAll: boolean
 }) => {
   return (
@@ -90,7 +92,7 @@ const BoardItems = ({
         </tbody>
       </TableRows>
       <div className="table-action">
-        <Button type="button" color="warning" width={200}>
+        <Button type="button" color="warning" width={200} onClick={onRemove}>
           선택한 게시판 삭제하기
         </Button>
       </div>

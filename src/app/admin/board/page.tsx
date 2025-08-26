@@ -9,5 +9,5 @@ export default async function BoardListPage({
 }) {
   const params = await searchParams
   const { items, pagination } = await getBoardList(params)
-  return <ListContainer items={items} pagination={pagination} />
+  return <ListContainer items={items} pagination={pagination} search={params} />
 }
