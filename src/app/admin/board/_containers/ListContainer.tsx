@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import type { BoardConfigType } from '@/app/board/_types/BoardType'
 import Pagination from '@/app/_global/components/Pagination'
 import BoardItems from '../_components/BoardItems'
@@ -11,10 +11,18 @@ type PropType = {
 }
 
 const ListContainer = ({ items, pagination }: PropType) => {
+  const [_items, setItems] = useState<Array<BoardConfigType> | undefined>(items)
+  const onToggle = useCallback((bid) => {
+    setItems((prevItems) =>
+      prevItems?.map((item) =>
+        item.bid === bid ? { ...item, chk: !Boolean(item.chk) } : item,
+      ),
+    )
+  }, [])
   return (
     <>
       <BoardSearchForm />
-      <BoardItems items={items} />
+      <BoardItems items={_items} onToggle={onToggle} />
       <Pagination pagination={pagination} />
     </>
   )
