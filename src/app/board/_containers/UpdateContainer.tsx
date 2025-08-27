@@ -39,6 +39,8 @@ const UpdateContainer = ({ board, data }: BoardFormType) => {
         errors={errors}
         pending={pending}
         action={action}
+        onChange={onChange}
+        onToggle={onToggle}
       />
     </CommonContainer>
   )

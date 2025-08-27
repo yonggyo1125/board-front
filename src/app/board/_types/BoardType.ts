@@ -32,6 +32,8 @@ export type BoardFormType = {
   errors: any
   pending: boolean
   action: (errors: any, formData: FormData) => any
+  onChange: (e: any) => void
+  onToggle: (key: string, value: any) => void
 } & BoardType
 
 export type BoardDataType = {
