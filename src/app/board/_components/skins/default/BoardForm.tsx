@@ -8,6 +8,8 @@ import { Input, Select, Textarea } from '@/app/_global/components/Forms'
 import { SubmitButton } from '@/app/_global/components/Buttons'
 import useUser from '@/app/_global/hooks/useUser'
 import Editor from '@/app/_global/components/Editor'
+import FileUpload from '@/app/_global/components/FileUpload'
+import FileItems from '@/app/_global/components/FileItems'
 
 const StyledForm = styled.form``
 
@@ -20,6 +22,8 @@ const BoardForm = ({
   onChange,
   onToggle,
   editorCallback,
+  fileUploadCallback,
+  fileDeleteCallback,
 }: BoardFormType) => {
   const { isAdmin } = useUser()
   console.log('board', board)
@@ -105,12 +109,39 @@ const BoardForm = ({
                 callback={editorCallback}
                 onChange={onChange}
               />
+              {board.imageUpload && (
+                <>
+                  <FileUpload
+                    gid={data.gid}
+                    location="editor"
+                    imageOnly={true}
+                    callback={fileUploadCallback}
+                  />
+                  <FileItems
+                    items={data.editorImages}
+                    callback={fileDeleteCallback}
+                  />
+                </>
+              )}
             </>
           ) : (
             <Textarea name="content" value={data.content} onChange={onChange} />
           )}
         </dd>
       </dl>
+      {board.attachFile && (
+        <dl>
+          <dt>파일첨부</dt>
+          <dd>
+            <FileUpload
+              gid={data.gid}
+              location="attach"
+              callback={fileUploadCallback}
+            />
+            <FileItems items={data.attachFiles} callback={fileDeleteCallback} />
+          </dd>
+        </dl>
+      )}
     </StyledForm>
   )
 }
