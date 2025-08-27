@@ -27,6 +27,21 @@ export type BoardType = {
   board: BoardConfigType
 }
 
-export type BoardFormType = {} & BoardType
+export type BoardFormType = {
+  mode?: 'write' | 'update'
+  bid: string
+  seq?: number
+  gid: string
+  category?: string
+  poster: string
+  guestPw?: string
+  subject: string
+  content: string
+  notice?: boolean
+  secret?: boolean
+  guest?: boolean
+  editorImages?: Array<any>
+  attachFiles?: Array<any>
+} & BoardType
 
 export type BoardListType = {} & BoardType
