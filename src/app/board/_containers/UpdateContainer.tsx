@@ -1,12 +1,22 @@
 'use client'
 import React, { useState, useEffect, useActionState, useCallback } from 'react'
 import BoardForm from '../_components/BoardForm'
-import { BoardDataType, type BoardFormType } from '../_types/BoardType'
+import {
+  BoardConfigType,
+  BoardDataType,
+  type BoardFormType,
+} from '../_types/BoardType'
 import CommonContainer from '../_wrappers/CommonContainer'
 import useUser from '@/app/_global/hooks/useUser'
 import { processUpdate } from '../_services/actions'
 
-const UpdateContainer = ({ board, data }: BoardFormType) => {
+const UpdateContainer = ({
+  board,
+  data,
+}: {
+  board: BoardConfigType
+  data: BoardDataType
+}) => {
   const [_data, setData] = useState<BoardDataType>(data)
   const [errors, action, pending] = useActionState<any, any>(processUpdate, {})
   const { isLogin, loggedMember } = useUser()
