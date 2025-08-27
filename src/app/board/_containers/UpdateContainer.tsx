@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useActionState } from 'react'
+import React, { useState, useEffect, useActionState, useCallback } from 'react'
 import BoardForm from '../_components/BoardForm'
 import { BoardDataType, type BoardFormType } from '../_types/BoardType'
 import CommonContainer from '../_wrappers/CommonContainer'
@@ -22,6 +22,14 @@ const UpdateContainer = ({ board, data }: BoardFormType) => {
       setData({ ...data })
     }
   }, [data, isLogin, loggedMember.name])
+
+  const onChange = useCallback((e) => {
+    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }, [])
+
+  const onToggle = useCallback((key, value) => {
+    setData((prev) => ({ ...prev, [key]: value }))
+  }, [])
 
   return (
     <CommonContainer board={board}>
