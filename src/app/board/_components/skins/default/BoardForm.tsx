@@ -7,6 +7,7 @@ import MessageBox from '@/app/_global/components/MessageBox'
 import { Input, Select, Textarea } from '@/app/_global/components/Forms'
 import { SubmitButton } from '@/app/_global/components/Buttons'
 import useUser from '@/app/_global/hooks/useUser'
+import Editor from '@/app/_global/components/Editor'
 
 const StyledForm = styled.form``
 
@@ -97,7 +98,9 @@ const BoardForm = ({
         <dt>글내용</dt>
         <dd>
           {board.editor ? (
-            <></>
+            <>
+              <Editor />
+            </>
           ) : (
             <Textarea name="content" value={data.content} onChange={onChange} />
           )}
