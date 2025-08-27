@@ -19,6 +19,7 @@ const BoardForm = ({
   pending,
   onChange,
   onToggle,
+  editorCallback,
 }: BoardFormType) => {
   const { isAdmin } = useUser()
   console.log('board', board)
@@ -99,7 +100,11 @@ const BoardForm = ({
         <dd>
           {board.editor ? (
             <>
-              <Editor />
+              <Editor
+                height={350}
+                callback={editorCallback}
+                onChange={onChange}
+              />
             </>
           ) : (
             <Textarea name="content" value={data.content} onChange={onChange} />

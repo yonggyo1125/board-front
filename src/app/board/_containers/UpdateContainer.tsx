@@ -1,11 +1,13 @@
 'use client'
-import React, { useState, useEffect, useActionState, useCallback } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useActionState,
+  useCallback,
+  useRef,
+} from 'react'
 import BoardForm from '../_components/BoardForm'
-import {
-  BoardConfigType,
-  BoardDataType,
-  type BoardFormType,
-} from '../_types/BoardType'
+import type { BoardConfigType, BoardDataType } from '../_types/BoardType'
 import CommonContainer from '../_wrappers/CommonContainer'
 import useUser from '@/app/_global/hooks/useUser'
 import { processUpdate } from '../_services/actions'
@@ -20,7 +22,8 @@ const UpdateContainer = ({
   const [_data, setData] = useState<BoardDataType>(data)
   const [errors, action, pending] = useActionState<any, any>(processUpdate, {})
   const { isLogin, loggedMember } = useUser()
-
+  const editorRef = useRef<any>(null)
+  console.log(_data)
   useEffect(() => {
     if (data.mode === 'write') {
       data.guest = !isLogin
@@ -41,6 +44,10 @@ const UpdateContainer = ({
     setData((prev) => ({ ...prev, [key]: value }))
   }, [])
 
+  const editorCallback = useCallback((editor) => {
+    editorRef.current = editor
+  }, [])
+
   return (
     <CommonContainer board={board}>
       <BoardForm
@@ -51,6 +58,7 @@ const UpdateContainer = ({
         action={action}
         onChange={onChange}
         onToggle={onToggle}
+        editorCallback={editorCallback}
       />
     </CommonContainer>
   )

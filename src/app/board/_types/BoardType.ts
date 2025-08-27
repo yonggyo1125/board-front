@@ -35,6 +35,7 @@ export type BoardFormType = {
   action: any
   onChange: (e: any) => void
   onToggle: (key: string, value: any) => void
+  editorCallback: (editor) => void
 } & BoardType
 
 export type BoardDataType = {
