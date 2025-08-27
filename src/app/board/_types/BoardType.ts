@@ -28,7 +28,14 @@ export type BoardType = {
 }
 
 export type BoardFormType = {
-  mode?: 'write' | 'update'
+  data: BoardDataType
+  errors: any
+  pending: boolean
+  action: (errors: any, formData: FormData) => any
+} & BoardType
+
+export type BoardDataType = {
+  mode?: string
   bid: string
   seq?: number
   gid: string
@@ -40,8 +47,6 @@ export type BoardFormType = {
   notice?: boolean
   secret?: boolean
   guest?: boolean
-  editorImages?: Array<any>
-  attachFiles?: Array<any>
-} & BoardType
+}
 
 export type BoardListType = {} & BoardType
