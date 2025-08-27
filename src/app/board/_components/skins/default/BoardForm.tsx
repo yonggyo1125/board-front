@@ -26,15 +26,22 @@ const BoardForm = ({
   fileDeleteCallback,
 }: BoardFormType) => {
   const { isAdmin } = useUser()
-  console.log('board', board)
+
   return (
     <StyledForm action={action} autoComplete="off">
+      <input type="hidden" name="mode" defaultValue={data.mode} />
       <input type="hidden" name="bid" defaultValue={data.bid} />
       <input type="hidden" name="gid" defaultValue={data.gid} />
       <input type="hidden" name="notice" defaultValue={'' + data.notice} />
-
+      {data.mode === 'update' && (
+        <>
+          <input type="hidden" name="seq" defaultValue={data.seq} />
+          <MessageBox color="danger">{errors?.seq}</MessageBox>
+        </>
+      )}
       <MessageBox color="danger">{errors?.bid}</MessageBox>
       <MessageBox color="danger">{errors?.gid}</MessageBox>
+      <MessageBox color="danger">{errors?.global}</MessageBox>
 
       <dl>
         <dt>작성자</dt>
@@ -142,6 +149,9 @@ const BoardForm = ({
           </dd>
         </dl>
       )}
+      <SubmitButton type="submit" width={280}>
+        {data.mode === 'update' ? '수정하기' : '작성하기'}
+      </SubmitButton>
     </StyledForm>
   )
 }
