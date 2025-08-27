@@ -5,4 +5,7 @@
  * @param errors
  * @param formData
  */
-export async function processUpdate(errors, formData: FormData) {}
+export async function processUpdate(
+  errors: any,
+  formData: FormData,
+): Promise<any> {}
