@@ -111,6 +111,7 @@ const BoardForm = ({
         <dd>
           {board.editor ? (
             <>
+              <input type="hidden" name="content" defaultValue={data.content} />
               <Editor
                 height={350}
                 callback={editorCallback}
@@ -134,6 +135,7 @@ const BoardForm = ({
           ) : (
             <Textarea name="content" value={data.content} onChange={onChange} />
           )}
+          <MessageBox color="danger">{errors?.content}</MessageBox>
         </dd>
       </dl>
       {board.attachFile && (
@@ -149,7 +151,7 @@ const BoardForm = ({
           </dd>
         </dl>
       )}
-      <SubmitButton type="submit" width={280}>
+      <SubmitButton type="submit" width={280} disabled={pending}>
         {data.mode === 'update' ? '수정하기' : '작성하기'}
       </SubmitButton>
     </StyledForm>

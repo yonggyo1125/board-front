@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { revalidateTag } from 'next/cache'
 import { fetchSSR } from '@/app/_global/libs/utils'
+import { toPlainObj } from '@/app/_global/libs/commons'
 
 /**
  * 회원가입 처리
@@ -10,18 +11,7 @@ import { fetchSSR } from '@/app/_global/libs/utils'
  */
 export async function processJoin(errors, formData: FormData) {
   errors = {}
-  const params: any = {}
-
-  // 필요한 필드와 값만 추출
-  for (const [key, value] of formData.entries()) {
-    if (key.startsWith('$ACTION_')) continue
-    let _value: string | boolean = value.toString()
-    if (['true', 'false'].includes(_value)) {
-      _value = _value === 'true'
-    }
-
-    params[key] = _value
-  }
+  const params = toPlainObj(formData)
 
   let hasErrors: boolean = false
   const isSocial = params?.socialChannel && params?.socialToken // 소셜 연결 회원가입 여부
@@ -95,7 +85,6 @@ export async function processJoin(errors, formData: FormData) {
       const { messages } = await res.json()
       return messages
     }
- 
   } catch (err: any) {
     return { global: err?.message }
   }
