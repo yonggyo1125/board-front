@@ -81,6 +81,28 @@ const BoardForm = ({
           </dd>
         </dl>
       )}
+      <dl>
+        <dt>글제목</dt>
+        <dd>
+          <Input
+            type="text"
+            name="subject"
+            value={data.subject}
+            onChange={onChange}
+          />
+          <MessageBox color="danger">{errors?.subject}</MessageBox>
+        </dd>
+      </dl>
+      <dl>
+        <dt>글내용</dt>
+        <dd>
+          {board.editor ? (
+            <></>
+          ) : (
+            <Textarea name="content" value={data.content} onChange={onChange} />
+          )}
+        </dd>
+      </dl>
     </StyledForm>
   )
 }
