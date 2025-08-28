@@ -10,6 +10,7 @@ const StyledItems = styled.ul`
     display: flex;
     height: 50px;
     border-bottom: 1px solid #ccc;
+    padding: 0 10px;
 
     &:first-of-type {
       border-top: 1px solid #ccc;
@@ -17,7 +18,9 @@ const StyledItems = styled.ul`
 
     .post-info {
       min-width: 350px;
-      text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
       span + span {
         margin-left: 10px;
       }
