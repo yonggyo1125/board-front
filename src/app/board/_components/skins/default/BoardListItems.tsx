@@ -4,6 +4,11 @@ import styled from 'styled-components'
 import { format, formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { BoardDataType } from '@/app/board/_types/BoardType'
+import color from '@/app/_global/styles/color'
+import fontsize from '@/app/_global/styles/fontsize'
+
+const { small } = fontsize
+const { danger, info, white } = color
 
 const StyledItems = styled.ul`
   li {
@@ -14,6 +19,10 @@ const StyledItems = styled.ul`
 
     &:first-of-type {
       border-top: 1px solid #ccc;
+    }
+
+    &:hover {
+      background: #f8f8f8;
     }
 
     .post-info {
@@ -36,13 +45,38 @@ const StyledItems = styled.ul`
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+
+        span {
+          display: inline-block;
+          padding: 5px 10px;
+          border-radius: 3px;
+          margin-right: 3px;
+          color: ${white};
+
+          &.notice {
+            background: ${danger};
+          }
+
+          &.category {
+            background: ${info};
+          }
+        }
       }
     }
   }
 `
 
 const BoardItem = ({ item }) => {
-  const { seq, subject, poster, member, viewCount, createdAt } = item
+  const {
+    seq,
+    subject,
+    category,
+    notice,
+    poster,
+    member,
+    viewCount,
+    createdAt,
+  } = item
 
   const dateStr = useMemo(() => {
     const gap = Date.now() - createdAt.getTime()
@@ -57,7 +91,11 @@ const BoardItem = ({ item }) => {
   return (
     <li>
       <a href={'/board/view/' + seq} className="subject">
-        <div>{subject}</div>
+        <div>
+          {notice && <span className="notice">공지</span>}
+          {category && <span className="category">{category}</span>}
+          {subject}
+        </div>
       </a>
       <span className="post-info">
         <span>
