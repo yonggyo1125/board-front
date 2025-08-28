@@ -10,8 +10,34 @@ import useUser from '@/app/_global/hooks/useUser'
 import Editor from '@/app/_global/components/Editor'
 import FileUpload from '@/app/_global/components/FileUpload'
 import FileItems from '@/app/_global/components/FileItems'
+import Loading from '@/app/_global/components/Loading'
 
-const StyledForm = styled.form``
+const StyledForm = styled.form`
+  dl {
+    display: flex;
+
+    dt {
+      width: 120px;
+      background: #f8f8f8;
+      padding: 10px 20px;
+    }
+    dd {
+      flex-grow: 1;
+      padding: 10px;
+    }
+
+    dt,
+    dd {
+      border-bottom: 1px solid #ccc;
+    }
+    &:first-of-type {
+      dd,
+      dd {
+        border-top: 1px solid #ccc;
+      }
+    }
+  }
+`
 
 const BoardForm = ({
   board,
@@ -166,6 +192,7 @@ const BoardForm = ({
         )}
         <SubmitButton type="submit" width={280} disabled={pending}>
           {data.mode === 'update' ? '수정하기' : '작성하기'}
+          <Loading loading={pending} />
         </SubmitButton>
       </StyledForm>
     )
