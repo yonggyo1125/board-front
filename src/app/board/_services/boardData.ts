@@ -1,6 +1,7 @@
 import type { BoardDataType } from '../_types/BoardType'
 import { v4 as uuid } from 'uuid'
 import { fetchSSR } from '@/app/_global/libs/utils'
+import { toDate } from '@/app/_global/libs/commons'
 
 export async function get(seq?: number): Promise<BoardDataType> {
   'use server'
@@ -26,8 +27,11 @@ export async function get(seq?: number): Promise<BoardDataType> {
     if (res.status === 200) {
       data = await res.json()
       data.mode = 'update'
-      data.bid = data.board?.bid;
-      
+      data.bid = data.board?.bid
+      data.createdAt = toDate(data.createdAt)
+      if (data.modifiedAt) data.modifiedAt = toDate(data.modifiedAt)
+      if (data.deletedAt) data.deletedAt = toDate(data.deletedAt)
+
       return data
     }
 

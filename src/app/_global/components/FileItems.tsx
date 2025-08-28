@@ -75,10 +75,12 @@ const FileItems = ({ items, callback }: FileType) => {
             #{fileName}
             <FiDownload className="icon-download" />
           </a>
-          <FaRegWindowClose
-            className="icon-remove"
-            onClick={() => onRemove(seq)}
-          />
+          {callback && (
+            <FaRegWindowClose
+              className="icon-remove"
+              onClick={() => onRemove(seq)}
+            />
+          )}
         </li>
       ))}
     </StyledItems>

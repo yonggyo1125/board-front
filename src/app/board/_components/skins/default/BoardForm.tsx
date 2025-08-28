@@ -63,7 +63,7 @@ const BoardForm = ({
   fileDeleteCallback,
 }: BoardFormType) => {
   const { isAdmin } = useUser()
-  console.log('data', data)
+
   return (
     board && (
       <StyledForm action={action} autoComplete="off">
