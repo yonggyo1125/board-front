@@ -4,7 +4,7 @@ import { fetchSSR } from '@/app/_global/libs/utils'
 
 export async function get(seq?: number): Promise<BoardDataType> {
   'use server'
-  let data = {
+  let data: BoardDataType = {
     mode: 'write',
     bid: '',
     gid: uuid(),
@@ -24,13 +24,15 @@ export async function get(seq?: number): Promise<BoardDataType> {
     const res = await fetchSSR(`/board/info/${seq}`)
 
     if (res.status === 200) {
-      data = await res.json();
+      data = await res.json()
       data.mode = 'update'
-      return data;
+      data.bid = data.board?.bid;
+      
+      return data
     }
 
     data.mode = 'update'
   }
-  
+
   return data
 }
