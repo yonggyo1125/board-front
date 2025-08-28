@@ -65,6 +65,11 @@ const StyledItems = styled.ul`
       }
     }
   }
+
+  .no-data {
+    display: block;
+    text-align: center;
+  }
 `
 
 const BoardItem = ({ item }) => {
