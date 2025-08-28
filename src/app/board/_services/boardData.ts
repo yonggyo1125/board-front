@@ -28,9 +28,9 @@ export async function get(seq?: number): Promise<BoardDataType> {
       data.mode = 'update'
       return data;
     }
-    
+
     data.mode = 'update'
-    
   }
+  
   return data
 }
