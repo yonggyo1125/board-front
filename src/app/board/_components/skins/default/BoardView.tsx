@@ -62,7 +62,37 @@ const Wrapper = styled.ul`
   }
 `
 
-const StyledLinks = styled.div``
+const StyledLinks = styled.div`
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+  height: 45px;
+
+  a {
+    line-height: 45px;
+    margin-left: 5px;
+    font-size: ${medium};
+    color: ${white};
+    border-radius: 3px;
+    padding: 0 15px;
+
+    &.btn1 {
+      background: ${color.primary};
+    }
+
+    &.btn2 {
+      background: ${color.danger};
+    }
+
+    &.btn3 {
+      background: ${color.warning};
+    }
+
+    &.btn4 {
+      background: ${color.info};
+    }
+  }
+`
 
 const BoardView = ({ board, data }: BoardViewType) => {
   return (
