@@ -48,11 +48,12 @@ const StyledItems = styled.ul`
 
         span {
           display: inline-block;
-          padding: 5px 10px;
+          padding: 7px 8px;
+          line-height: 1;
           border-radius: 3px;
           margin-right: 3px;
           color: ${white};
-
+          font-size: ${small};
           &.notice {
             background: ${danger};
           }
