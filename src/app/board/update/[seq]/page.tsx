@@ -14,9 +14,7 @@ export default async function UpdatePage({
 
   return (
     <ContentBox>
-      <MainTitle border="true">
-        {data?.subject} | {board?.name}
-      </MainTitle>
+      <MainTitle border="true">{data?.subject}</MainTitle>
       <UpdateContainer board={board} data={data} />
     </ContentBox>
   )
