@@ -1,7 +1,7 @@
 import ContentBox from '@/app/_global/components/ContentBox'
 import { MainTitle } from '@/app/_global/components/TitleBox'
 import { get } from '../../_services/boardData'
-
+import ViewContainer from '../../_containers/ViewContainer'
 export default async function ViewPage({
   params,
 }: {
@@ -15,6 +15,7 @@ export default async function ViewPage({
   return (
     <ContentBox>
       {data?.subject && <MainTitle border="true">{data?.subject}</MainTitle>}
+      <ViewContainer board={board} data={data} />
     </ContentBox>
   )
 }
