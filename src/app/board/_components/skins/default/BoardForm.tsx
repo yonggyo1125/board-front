@@ -29,12 +29,23 @@ const StyledForm = styled.form`
     dt,
     dd {
       border-bottom: 1px solid #ccc;
+
+      svg {
+        font-size: 2rem;
+        vertical-align: middle;
+        margin-right: 10px;
+        cursor: pointer;
+      }
     }
     &:first-of-type {
-      dd,
+      dt,
       dd {
         border-top: 1px solid #ccc;
       }
+    }
+
+    &:last-of-type {
+      margin-bottom: 30px;
     }
   }
 `
