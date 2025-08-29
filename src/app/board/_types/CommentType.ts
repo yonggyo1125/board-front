@@ -4,6 +4,7 @@ export type CommentType = {
   form?: CommentDataType
   items?: Array<CommentDataType>
   data?: BoardDataType // 원게시글 데이터
+  onChange?: (e: any) => void
 } & BoardType
 
 export type CommentDataType = {
