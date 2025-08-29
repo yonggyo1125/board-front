@@ -69,3 +69,11 @@ export async function processUpdate(errors: any, formData: FormData) {
 
   redirect(redirectUrl)
 }
+
+/**
+ * 비회원 비밀번호 확인 처리
+ *
+ * @param errors
+ * @param formData
+ */
+export async function processPassword(errors: any, formData: FormData) {}
