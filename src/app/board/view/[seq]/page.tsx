@@ -32,7 +32,7 @@ export default async function ViewPage({
     <ContentBox>
       {board?.name && <MainTitle border="true">{board.name}</MainTitle>}
       <ViewContainer board={board} data={data} />
-      <CommentContainer />
+      <CommentContainer board={board} data={data} />
       {board?.listable && board?.showViewList && (
         <ListContainer
           board={board}
