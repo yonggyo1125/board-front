@@ -6,7 +6,15 @@ import MessageBox from '@/app/_global/components/MessageBox'
 import Loading from '@/app/_global/components/Loading'
 const StyledForm = styled.form``
 
-const PasswordForm = ({ mode, seq, errors, action, pending }) => {
+const PasswordForm = ({
+  mode,
+  seq,
+  errors,
+  action,
+  pending,
+  password,
+  onChange,
+}) => {
   return (
     <StyledForm action={action} autoComplete="off">
       <h1>비회원 비밀번호 확인</h1>
@@ -16,7 +24,13 @@ const PasswordForm = ({ mode, seq, errors, action, pending }) => {
       <MessageBox color="danger">{errors?.seq}</MessageBox>
       <MessageBox color="danger">{errors?.global}</MessageBox>
 
-      <Input type="password" name="password" placeholder="비밀번호" />
+      <Input
+        type="password"
+        name="password"
+        placeholder="비밀번호"
+        value={password}
+        onChange={onChange}
+      />
       <MessageBox color="danger">{errors?.password}</MessageBox>
 
       <button type="submit" disabled={pending}>

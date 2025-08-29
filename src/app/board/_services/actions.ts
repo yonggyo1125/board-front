@@ -76,4 +76,6 @@ export async function processUpdate(errors: any, formData: FormData) {
  * @param errors
  * @param formData
  */
-export async function processPassword(errors: any, formData: FormData) {}
+export async function processPassword(errors: any, formData: FormData) {
+  console.log('formData', formData)
+}
