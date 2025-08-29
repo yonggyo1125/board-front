@@ -17,7 +17,6 @@ export type CommentDataType = {
   commenter?: string
   guestPw?: string
   content: string
-  item?: BoardDataType // 원 게시글
   member?: any
   guest?: boolean
   editable?: boolean

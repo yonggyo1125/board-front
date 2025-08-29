@@ -1,6 +1,6 @@
 import React from 'react'
-
-const CommentItems = () => {
+import type { CommentType } from '@/app/board/_types/CommentType'
+const CommentItems = ({ items }: CommentType) => {
   return <></>
 }
 
