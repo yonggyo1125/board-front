@@ -59,6 +59,7 @@ const CommentForm = ({
           name="content"
           value={form?.content ?? ''}
           onChange={onChange}
+          placeholder="댓글을 입력하세요."
         />
         <button type="submit" disabled={pending}>
           작성하기 <Loading loading={Boolean(pending)} />
