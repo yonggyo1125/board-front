@@ -114,7 +114,7 @@ export async function processPassword(errors: any, formData: FormData) {
   if (res.status !== 204) {
     // 비회원 비밀번호 인증 실패
     const data = await res.json()
-    return data.messages
+    return { password: data.messages }
   }
 
   let redirectUrl: string = '/board/'

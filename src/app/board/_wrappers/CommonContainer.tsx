@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import type { BoardConfigType, BoardDataType } from '../_types/BoardType'
 import useAlertDialog from '@/app/_global/hooks/useAlertDialog'
@@ -20,7 +20,13 @@ const CommonContainer = ({
   const [isError, setError] = useState<boolean>(false)
   const [isRequiredPassword, setRequiredPassword] = useState<boolean>(false) // 비회원 비밀번호 확인이 필요한가?
 
-  const { isLogin } = useUser()
+  const { isLogin, isAdmin } = useUser()
+
+  /**
+   * 글보기, 글목록, 글 작성 권한 체크
+   *
+   */
+  const checkAuthority = useCallback(() => {}, [isAdmin, isLogin, board])
 
   useEffect(() => {
     // 게시글 수정, 보기일때 게시글이 있는지 체크
@@ -49,6 +55,17 @@ const CommonContainer = ({
       })
       setError(true)
     }
+
+    if (isAdmin) {
+      // 관리자는 권한 상관없이 게시글의 통제가 가능
+      return
+    }
+
+    /**
+     * 글목록, 글보기 권한 체크
+     *
+     */
+    checkAuthority()
 
     /**
      * 글수정, 삭제
@@ -84,7 +101,7 @@ const CommonContainer = ({
 
       setError(true)
     }
-  }, [board, alertDialog, router, data, isLogin])
+  }, [board, alertDialog, router, data, isLogin, isAdmin, checkAuthority])
 
   return isError ? (
     isRequiredPassword ? (
