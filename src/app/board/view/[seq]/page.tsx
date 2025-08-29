@@ -32,7 +32,6 @@ export default async function ViewPage({
 
   // 댓글 목록 조회
   const comments = await getComments(seq)
-  console.log('comments', comments)
   return (
     <ContentBox>
       {board?.name && <MainTitle border="true">{board.name}</MainTitle>}
