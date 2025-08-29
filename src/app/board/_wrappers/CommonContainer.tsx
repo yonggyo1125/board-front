@@ -53,27 +53,28 @@ const CommonContainer = ({
      *  - 로그인 페이지로 이동
      * 회원 게시글인데, 다른 회원으로 로그인 한 경우
      *  - 접근 권한이 없습니다. 알림을 보여주고 이전페이지로 이동
+     * 비회원 게시글이고 인증이 안된 경우(mine - false)
+     *  - 비회원 비밀번호 확인 화면으로 전환
      */
-    if (
-      data &&
-      ['update', 'delete'].includes(data.mode ?? '') &&
-      !data.guest &&
-      !data.mine
-    ) {
-      if (isLogin) {
-        alertDialog({
-          text: '접근 권한이 없습니다.',
-          callback: () => {
-            router.back()
-          },
-        })
-      } else {
-        const redirectUrl =
-          data.mode === 'delete'
-            ? `/board/delete/${data.seq}`
-            : `/board/update/${data.seq}`
+    if (data && ['update', 'delete'].includes(data.mode ?? '') && !data.mine) {
+      if (data.guest) { // 비회원 게시글
 
-        router.replace(`/member/login?redirectUrl=${redirectUrl}`)
+      } else { // 회원 게시글 
+        if (isLogin) {
+          alertDialog({
+            text: '접근 권한이 없습니다.',
+            callback: () => {
+              router.back()
+            },
+          })
+        } else {
+          const redirectUrl =
+            data.mode === 'delete'
+              ? `/board/delete/${data.seq}`
+              : `/board/update/${data.seq}`
+
+          router.replace(`/member/login?redirectUrl=${redirectUrl}`)
+        }
       }
 
       setError(true)
