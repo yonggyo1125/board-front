@@ -82,6 +82,7 @@ export type BoardListType = {
 
 export type BoardViewType = {
   data?: BoardDataType
+  onDelete?: (e: React.MouseEvent) => void
 } & BoardType
 
 export type BoardSearchType = {
