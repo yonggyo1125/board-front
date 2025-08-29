@@ -131,3 +131,11 @@ export async function processPassword(errors: any, formData: FormData) {
 
   redirect(redirectUrl)
 }
+
+/**
+ * 댓글 등록, 수정
+ *
+ * @param errors
+ * @param formData
+ */
+export async function processComment(errors: any, formData: FormData) {}
