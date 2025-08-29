@@ -66,15 +66,17 @@ const CommonContainer = ({
           (listable && mode === 'list') ||
           (writable && mode === 'write'))
 
-      alertDialog({
-        text: '접근 권한이 없습니다.',
-        callback: () => {
-          router.back()
-        },
-      })
+      if (!result) {
+        alertDialog({
+          text: '접근 권한이 없습니다.',
+          callback: () => {
+            router.back()
+          },
+        })
 
-      setError(result)
-      return
+        setError(true)
+        return
+      }
     }
     /**
      * 글수정, 삭제
