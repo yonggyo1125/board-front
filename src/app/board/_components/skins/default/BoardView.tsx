@@ -140,11 +140,7 @@ const BoardView = ({ board, data, onDelete }: BoardViewType) => {
           )}
           {data.editable && (
             <>
-              <a
-                href={'/board/delete/' + data.seq}
-                className="btn2"
-                onClick={onDelete}
-              >
+              <a className="btn2" onClick={onDelete}>
                 글삭제
               </a>
               <a href={'/board/update/' + data.seq} className="btn3">

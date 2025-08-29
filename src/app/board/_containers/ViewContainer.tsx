@@ -1,5 +1,6 @@
 'use client'
 import React, { useContext, useLayoutEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import type { BoardConfigType, BoardDataType } from '../_types/BoardType'
 import CommonContainer from '../_wrappers/CommonContainer'
 import BoardView from '../_components/BoardView'
@@ -24,15 +25,22 @@ const ViewContainer = ({
   }, [data, board, setMainTitle])
 
   const confirmDialog = useConfirmDialog()
+  const router = useRouter()
 
-  const onDelete = useCallback((e) => {
-    confirmDialog({
-      text: '정말 삭제하겠습니까?',
-      cancelCallback: () => {
-        e.preventDefault()
-      },
-    })
-  }, [confirmDialog])
+  const onDelete = useCallback(
+    (e) => {
+      e.preventDefault()
+      if (!data) return
+
+      confirmDialog({
+        text: '정말 삭제하겠습니까?',
+        confirmCallback: () => {
+          router.push(`/board/delete/${data.seq}`)
+        },
+      })
+    },
+    [confirmDialog, data, router],
+  )
 
   return (
     <CommonContainer board={board} data={data} mode="view">
