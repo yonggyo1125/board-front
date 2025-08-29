@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import type { BoardConfigType, BoardDataType } from '../_types/BoardType'
 import useAlertDialog from '@/app/_global/hooks/useAlertDialog'
 import useUser from '@/app/_global/hooks/useUser'
+import PasswordContainer from '../_containers/PasswordContainer'
 
 const CommonContainer = ({
   children,
@@ -17,6 +18,8 @@ const CommonContainer = ({
   const alertDialog = useAlertDialog()
   const router = useRouter()
   const [isError, setError] = useState<boolean>(false)
+  const [isRequiredPassword, setRequiredPassword] = useState<boolean>(false) // 비회원 비밀번호 확인이 필요한가?
+
   const { isLogin } = useUser()
 
   useEffect(() => {
@@ -57,9 +60,11 @@ const CommonContainer = ({
      *  - 비회원 비밀번호 확인 화면으로 전환
      */
     if (data && ['update', 'delete'].includes(data.mode ?? '') && !data.mine) {
-      if (data.guest) { // 비회원 게시글
-
-      } else { // 회원 게시글 
+      if (data.guest) {
+        // 비회원 게시글
+        setRequiredPassword(true)
+      } else {
+        // 회원 게시글
         if (isLogin) {
           alertDialog({
             text: '접근 권한이 없습니다.',
@@ -81,7 +86,15 @@ const CommonContainer = ({
     }
   }, [board, alertDialog, router, data, isLogin])
 
-  return isError ? <></> : children
+  return isError ? (
+    isRequiredPassword ? (
+      <PasswordContainer mode={data?.mode} seq={data?.seq} />
+    ) : (
+      <></>
+    )
+  ) : (
+    children
+  )
 }
 
 export default React.memo(CommonContainer)
