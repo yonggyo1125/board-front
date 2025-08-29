@@ -17,7 +17,12 @@ const CommentForm = ({
 }: CommentType) => {
   return (
     <StyledForm action={action} autoComplete="off">
-      <input type="hidden" name="mode" value={form?.mode ?? 'comment_write'} />
+      <input type="hidden" name="guest" defaultValue={'' + form?.guest} />
+      <input
+        type="hidden"
+        name="mode"
+        defaultValue={form?.mode ?? 'comment_write'}
+      />
       {form?.mode === 'comment_update' && (
         <input type="hidden" name="seq" defaultValue={form?.seq} />
       )}

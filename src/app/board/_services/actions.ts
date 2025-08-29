@@ -144,7 +144,7 @@ export async function processComment(errors: any, formData: FormData) {
   let hasErrors: boolean = false
 
   // 유효성 검사
-  const { seq, boardDataSeq, commenter, content, mode } = params
+  const { seq, boardDataSeq, commenter, content, mode, guest, guestPw } = params
   if (!boardDataSeq || !mode || (mode === 'comment_update' && !seq)) {
     errors.global = '잘못된 접근입니다.'
     hasErrors = true
@@ -157,6 +157,11 @@ export async function processComment(errors: any, formData: FormData) {
 
   if (!content?.trim()) {
     errors.content = '댓글을 입력하세요.'
+    hasErrors = true
+  }
+
+  if (guest && !guestPw?.trim()) {
+    errors.guestPw = '비밀번호를 입력하세요.'
     hasErrors = true
   }
 
@@ -173,6 +178,7 @@ export async function processComment(errors: any, formData: FormData) {
   })
 
   const data = await res.json()
+  console.log('data', data)
   if (![200, 201].includes(res.status)) {
     // 댓글 등록 또는 수정에 실패한 경우
     return data.messages
